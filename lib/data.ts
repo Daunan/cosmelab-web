@@ -737,9 +737,9 @@ export const getBuyingLink = (language: Language, product: Product | undefined):
         if (brand === 'COSCELL') return 'https://www.amazon.com/s?k=coscell&i=beauty&crid=1A8TMANOH3WB&sprefix=co%2Cbeauty%2C771&ref=nb_sb_noss_2';
     }
 
-    // 6. Korea -> Smart Store (Placeholder or specific if known, defaulting to cosmelab.com for now)
+    // 6. Korea -> Cafe24 (Specific URL provided by user)
     if (language === Language.KR) {
-        return 'https://smartstore.naver.com/cosmelab';
+        return 'https://cosmelab06.cafe24.com/';
     }
 
     return '#';
