@@ -316,6 +316,13 @@ export default function Quiz({ locale }: QuizProps) {
                             <a href="https://wa.me/821050938474" className="text-black font-medium hover:text-green-600">+82 10-5093-8474</a>
                         </div>
                     </div>
+                    <div className="flex items-center gap-3">
+                        <span className="w-10 h-10 rounded-full bg-pink-50 flex items-center justify-center text-pink-600">📸</span>
+                        <div className="text-left">
+                            <div className="text-xs uppercase font-bold text-gray-400">Instagram</div>
+                            <a href="https://www.instagram.com/cosmelab_official_global/" target="_blank" rel="noopener noreferrer" className="text-black font-medium hover:text-pink-600">@cosmelab_official_global</a>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </div>
