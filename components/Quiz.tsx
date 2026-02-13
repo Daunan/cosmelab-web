@@ -62,6 +62,7 @@ export default function Quiz({ locale }: QuizProps) {
                     { code: Language.DE, flag: '🇩🇪', label: 'Deutsch' },
                     { code: Language.EL, flag: '🇬🇷', label: 'Ελληνικά' },
                     { code: Language.RU, flag: '🇷🇺', label: 'Русский' },
+                    { code: Language.KR, flag: '🇰🇷', label: '한국어' },
                 ].map((lang) => (
                     <button
                         key={lang.code}
