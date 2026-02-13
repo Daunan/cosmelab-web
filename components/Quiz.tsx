@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, RefreshCcw, ShoppingBag, ArrowRight, Sparkles } from 'lucide-react';
-import { CATEGORIES, PRODUCTS, UI_TRANSLATIONS, getBuyingLink, BRAND_INTRODUCE_URL } from '@/lib/data';
+import { CATEGORIES, PRODUCTS, UI_TRANSLATIONS, getBuyingLink, BRAND_INTRODUCE_URL, getDriveUrl } from '@/lib/data';
 import { Category, Language, QuizStepId } from '@/lib/types';
 import { cn } from '@/lib/utils';
 
@@ -49,7 +49,7 @@ export default function Quiz({ locale }: QuizProps) {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 py-12 min-h-[80vh] flex flex-col items-center justify-center font-sans relative">
+        <div className="w-full max-w-6xl mx-auto px-4 py-12 min-h-[80vh] flex flex-col items-center justify-center font-sans relative">
 
             {/* Language Switcher */}
             <div className="absolute top-4 right-4 flex flex-wrap justify-end gap-3 z-50">
@@ -105,25 +105,40 @@ export default function Quiz({ locale }: QuizProps) {
                         key="start"
                         initial="hidden" animate="visible" exit={{ opacity: 0, y: -20 }}
                         variants={fadeUp}
-                        className="text-center space-y-8"
+                        className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16 w-full"
                     >
-                        <div className="space-y-4">
-                            <h2 className="text-sm font-bold tracking-[0.3em] text-blue-600 uppercase">{t.hero.sub}</h2>
-                            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight whitespace-pre-line">
-                                {t.hero.title}
-                            </h1>
-                            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                                {t.hero.desc}
-                            </p>
+                        {/* LEFT: TEXT */}
+                        <div className="flex-1 text-center md:text-left space-y-8">
+                            <div className="space-y-4">
+                                <h2 className="text-sm font-bold tracking-[0.3em] text-blue-600 uppercase">{t.hero.sub}</h2>
+                                <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight whitespace-pre-line">
+                                    {t.hero.title}
+                                </h1>
+                                <p className="text-lg text-gray-600 max-w-xl mx-auto md:mx-0 leading-relaxed">
+                                    {t.hero.desc}
+                                </p>
+                            </div>
+
+                            <button
+                                onClick={() => setStep(QuizStepId.FOCUS)}
+                                className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-full overflow-hidden transition-all hover:bg-gray-800 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                            >
+                                <span className="mr-2">{t.start}</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </button>
                         </div>
 
-                        <button
-                            onClick={() => setStep(QuizStepId.FOCUS)}
-                            className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-black rounded-full overflow-hidden transition-all hover:bg-gray-800 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-                        >
-                            <span className="mr-2">{t.start}</span>
-                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        {/* RIGHT: IMAGE */}
+                        <div className="flex-1 relative w-full max-w-md aspect-square hidden md:block">
+                            <div className="absolute inset-0 bg-gray-100 rounded-[2rem] transform rotate-3 transition-transform hover:rotate-0 shadow-2xl overflow-hidden">
+                                <Image
+                                    src={getDriveUrl('1Y6m6R0z_7wBpxY6FRZSPtpKJ-cjpgwNg')}
+                                    alt="Cosmelab Curation"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                        </div>
                     </motion.div>
                 )}
 
