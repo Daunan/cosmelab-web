@@ -44,7 +44,8 @@ export interface Product {
     videoUrl?: string;
     subNeed: string[];
     tags: string[];
-    translations?: Partial<Record<string, LocalizedContent>>; // Changed key to string to allow flexibility
+    translations?: Partial<Record<string, LocalizedContent>>;
+    snsFeedback?: string; // HTML or text for SNS feedback
 }
 
 export interface CategoryOption {

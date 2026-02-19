@@ -435,12 +435,21 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1Ru1sWVXPcx5xk5Tccjf5c7FlkV-sl_eb'),
         subNeed: ['lip'],
         tags: ['32H', 'Iconic'],
+        snsFeedback: `
+            <h4 class="font-bold mb-2">Lip Tattoo Tint Pack: Vivid Coloration with a 5-Minute Application</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Convenient Application & Instant Pigmentation:</strong> By applying a thick layer to the lips and allowing it to dry for approximately 5 minutes before peeling, the product delivers immediate, vivid coloration. Unlike tube-type competitors, this product features an integrated silicone tip with optimal elasticity, ensuring precise application along the lip line and superior ease of use.</li>
+                <li><strong>Transfer-Proof Adhesion:</strong> Once peeled, the formula creates a perfect seal that does not transfer onto cups, masks, or hands, maintaining a pristine appearance without smudging.</li>
+                <li><strong>Superior Retention & Layering:</strong> A single application provides all-day color retention. The product supports versatile styling; users can layer two different shades for a natural gradient effect or apply lip oil on top for a glossy finish.</li>
+            </ul>
+        `,
         translations: {
             [Language.ES]: { name: 'LIP TATTOO TINT PACK', description: 'El tinte labial peel-off original. Color vibrante durante 32 horas sin manchas.' },
             [Language.JP]: { name: 'リップタトゥーパック', description: '世界中で愛される元祖「剥がすリップ」。32時間塗りたての色をキープ。' },
             [Language.ME]: { name: 'تاتو الشفاه الأصلي', description: 'أول صبغة شفاه قابلة للتقشير. تضمن لونًا حيويًا لمدة 32 ساعة دون تلطيخ.' },
             [Language.FR]: { name: 'LIP TATTOO TINT PACK', description: "L'emblématique tattoo à lèvres pelable. Couleur vibrante 32h sans transfert." },
-            [Language.DE]: { name: 'LIP TATTOO TINT PACK', description: 'Die weltweit erste abziehbare Lippentönung. Hält 32 Stunden ohne abzufärben.' }
+            [Language.DE]: { name: 'LIP TATTOO TINT PACK', description: 'Die weltweit erste abziehbare Lippentönung. Hält 32 Stunden ohne abzufärben.' },
+            [Language.KR]: { name: '립 타투 틴트 팩', description: '원조 뜯는 틴트. 묻어남 없이 32시간 지속되는 선명한 발색을 경험하세요.' }
         }
     },
     {
@@ -454,9 +463,10 @@ export const PRODUCTS: Product[] = [
         translations: {
             [Language.ES]: { name: 'JELLY TATTOO TINT', description: 'Tinte peel-off con textura gelatina para un color intenso y labios hidratados.' },
             [Language.JP]: { name: 'ジェリータトゥーティント', description: 'ぷるんとしたジェリーのような質感。鮮やかな発色と潤いが持続します。' },
-            [Language.ME]: { name: 'jiلي تاتو تينت', description: 'صبغة شفاه جيلي قابلة للتقشير بلون غني وملمس مريح.' },
+            [Language.ME]: { name: 'جيلي تاتو تينت', description: 'صبغة شفاه جيلي قابلة للتقشير بلون غني وملمس مريح.' },
             [Language.FR]: { name: 'JELLY TATTOO TINT', description: 'Tattoo à lèvres pelable au fini gelée pour une couleur éclatante.' },
-            [Language.DE]: { name: 'JELLY TATTOO TINT', description: 'Ein abziehbares Lippen-Tattoo mit lebendigen Farben und geschmeidigem Jelly-Finish.' }
+            [Language.DE]: { name: 'JELLY TATTOO TINT', description: 'Ein abziehbares Lippen-Tattoo mit lebendigen Farben und geschmeidigem Jelly-Finish.' },
+            [Language.KR]: { name: '젤리 타투 틴트', description: '촉촉한 젤리 텍스처로 완성하는 생생한 컬러와 편안한 사용감.' }
         }
     },
     {
@@ -467,12 +477,20 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1rW5IXV3lFCDXw_ux8ent3Q1FJKEXIAS8'),
         subNeed: ['eyebrow'],
         tags: ['8-Day', 'Natural'],
+        snsFeedback: `
+            <h4 class="font-bold mb-2">Eyebrow Tattoo Pack: Exceptional Durability and Natural Finish</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Unrivaled Long-Lasting Performance:</strong> The product demonstrates powerful durability, maintaining pigmentation for 5 to 7 days after a single use. This performance significantly exceeds the 32-hour duration benchmark, eliminating the need for retouching and drastically reducing morning makeup routines throughout the week.</li>
+                <li><strong>Natural Aesthetic:</strong> The tint results in a natural look rather than an artificial or overly dark appearance. The applicator, designed like a nail polish brush, allows for easy control, making it accessible even for beginners.</li>
+            </ul>
+        `,
         translations: {
             [Language.ES]: { name: 'OOPS MY BROW TATTOO', description: 'Cejas perfectas hasta por 8 días. Definición natural de nivel profesional.' },
             [Language.JP]: { name: 'アイブロウタトゥー', description: '最長8日間持続。毎朝のメイクを楽にする、自然な仕上がりの眉タトゥー。' },
             [Language.ME]: { name: 'تاتو الحواجب أوبس', description: 'حل احترافي للحواجب يدوم حتى 8 أيام بمظهر طبيعي للغاية.' },
             [Language.FR]: { name: 'OOPS MY BROW TATTOO', description: 'Teinture sourcils professionnelle tenue 8 jours, fini naturel.' },
-            [Language.DE]: { name: 'OOPS MY BROW TATTOO', description: 'Professionelles Augenbrauen-Tattoo für ein natürliches Aussehen, hält bis zu 8 Tage.' }
+            [Language.DE]: { name: 'OOPS MY BROW TATTOO', description: 'Professionelles Augenbrauen-Tattoo für ein natürliches Aussehen, hält bis zu 8 Tage.' },
+            [Language.KR]: { name: '웁스 마이 아이브로우 타투', description: '최대 8일 지속. 매일 그릴 필요 없는 자연스러운 눈썹 문신 효과.' }
         }
     },
     {
@@ -483,12 +501,20 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1XRprARVP6wHaLPaIKZ6So_KYE0vtbppH'),
         subNeed: ['shading'],
         tags: ['3D Sculp', '7-Day'],
+        snsFeedback: `
+            <h4 class="font-bold mb-2">Multi-Zone Application</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li>Beyond lips and brows, the formula is upgraded for versatility, allowing for contouring on the nose, hairline, and under-eye areas (aegyosal). This creates defined facial features, providing confidence even without full makeup.</li>
+                <li><strong>Full Makeup Effect:</strong> The product offers a "full makeup" visual effect suitable for active scenarios such as travel or water activities, ensuring a polished look that withstands various conditions.</li>
+            </ul>
+        `,
         translations: {
             [Language.ES]: { name: 'SHADING TATTOO', description: 'Define y esculpe el rostro con un acabado 3D impecable y duradero.' },
             [Language.JP]: { name: 'シェーディングタトゥー', description: '理想の陰影メイクをデザイン。7日間持続する３D立体メイク。' },
             [Language.ME]: { name: 'تاتو التظليل', description: 'حدد ونحت ملامح الوجه بلمسة ثلاثية الأبعاد تدوم طويلاً.' },
             [Language.FR]: { name: 'SHADING TATTOO', description: 'Définissez et sculptez vos contours pour un fini 3D durable.' },
-            [Language.DE]: { name: 'SHADING TATTOO', description: 'Definieren und modellieren Sie Ihre Gesichtskonturen mit langanhaltendem 3D-Finish.' }
+            [Language.DE]: { name: 'SHADING TATTOO', description: 'Definieren und modellieren Sie Ihre Gesichtskonturen mit langanhaltendem 3D-Finish.' },
+            [Language.KR]: { name: '쉐딩 타투', description: '7일 동안 지속되는 입체 윤곽. 땀과 물에도 지워지지 않는 강력한 3D 페이스 라인.' }
         }
     },
     {
@@ -499,12 +525,20 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('16_05uAEWUepmP871kUafYMyHqAAckvbB'),
         subNeed: ['toneup'],
         tags: ['Glow', 'Milk'],
+        snsFeedback: `
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Viral Drivers:</strong> Dubbed "Milk Carton Skincare," this product is trending significantly due to its instagrammable packaging and unique texture.</li>
+                <li><strong>Texture:</strong> Features a "fresh whipped cream" consistency that melts seamlessly into the skin.</li>
+                <li><strong>Performance:</strong> Positioned as a "game changer" for dull skin, offering immediate tone-up effects ideal for achieving a "No-Makeup" look. Users note its effectiveness in covering blemishes and correcting skin tone.</li>
+            </ul>
+        `,
         translations: {
             [Language.ES]: { name: 'WHITE IN WHIPPING CREAM', description: 'Crema iluminadora con proteínas de leche para una piel radiante al instante.' },
-            [Language.JP]: { name: 'ホワイトホイップクリーム', description: '牛乳タンパク質配合。一塗りでワントーン明るい透明肌를演出します。' },
+            [Language.JP]: { name: 'ホワイトホイップクリーム', description: '牛乳タンパク質配合。一塗りでワントーン明るい透明肌を演出します。' },
             [Language.ME]: { name: 'كريم ويبينج للتفتيح', description: 'كريم تفتيح فوري مع بروتين الحليب لإشراقة طبيعية.' },
             [Language.FR]: { name: 'WHITE IN WHIPPING CREAM', description: 'Crème éclat instantanée aux protéines de lait pour un teint radieux.' },
-            [Language.DE]: { name: 'WHITE WHIPPING CREAM', description: 'Sofort-Aufhellungscreme mit Milchproteinen für einen strahlenden Glow.' }
+            [Language.DE]: { name: 'WHITE WHIPPING CREAM', description: 'Sofort-Aufhellungscreme mit Milchproteinen für einen strahlenden Glow.' },
+            [Language.KR]: { name: '화이트 인 생크림', description: '우유 단백질 추출물 함유. 바르는 즉시 화사해지는 톤업 매직.' }
         }
     },
     {
@@ -520,7 +554,33 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'モイスチャークリーム', description: '深い潤いを与え、内側から輝くようなツヤ肌へ導く高保湿クリーム。' },
             [Language.ME]: { name: 'كريم الترطيب وايت', description: 'كريم ترطيب عميق يغذي البشرة ويفتحها من الداخل.' },
             [Language.FR]: { name: 'WHITE IN MOISTURE CREAM', description: 'Crème hydratante profonde pour une peau nourrie et lumineuse.' },
-            [Language.DE]: { name: 'WHITE MOISTURE CREAM', description: 'Intensive Feuchtigkeitspflege, die die Haut nährt und zum Strahlen bringt.' }
+            [Language.DE]: { name: 'WHITE MOISTURE CREAM', description: 'Intensive Feuchtigkeitspflege, die die Haut nährt und zum Strahlen bringt.' },
+            [Language.KR]: { name: '화이트 인 수분 크림', description: '피부 속부터 차오르는 수분광. 미백과 보습을 한번에 해결하는 데일리 크림.' }
+        }
+    },
+    {
+        id: 'g9-milk-toner',
+        brand: 'G9SKIN',
+        name: 'WHITE IN MILK TONER',
+        description: 'Gentle, high-capacity hydrating toner (300ml). Enriched with Milk Protein for brightening and moisturizing.',
+        imageUrl: getDriveUrl('1xc5keLI5I1ymi-aILE_YJsiWNeguLb1k'),
+        subNeed: ['moisture'], // Adding to moisture care as requested
+        tags: ['300ml', 'MilkProtein'],
+        snsFeedback: `
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Market Perception:</strong> Highly regarded as a "gentle, high-capacity hydrating toner."</li>
+                <li><strong>User Experience:</strong> Consumers praise the unique "diluted milk" texture—creamy yet lightweight—offering rapid absorption without sticky residue.</li>
+                <li><strong>Efficacy:</strong> Formulated with milk protein, it is recognized for brightening and firming properties without the use of harsh acids. It is frequently recommended for soothing dry, winter-fatigued skin.</li>
+                <li><strong>Value Proposition:</strong> The substantial 300ml volume and dual functionality (whitening/anti-wrinkle) are cited as key value drivers.</li>
+            </ul>
+        `,
+        translations: {
+            [Language.ES]: { name: 'WHITE IN MILK TONER', description: 'Tónico hidratante suave de gran formato (300ml) con proteína de leche.' },
+            [Language.JP]: { name: 'ホワイトインミルクトナー', description: '300ml大容量。牛乳タンパク質配合で、しっとり明るい肌へ導く低刺激トナー。' },
+            [Language.ME]: { name: 'تونر الحليب المبيض', description: 'تونر مرطب لطيف بحجم كبير (300 مل) مع بروتين الحليب.' },
+            [Language.FR]: { name: 'WHITE IN MILK TONER', description: 'Tonique hydratant doux grand format (300ml) aux protéines de lait.' },
+            [Language.DE]: { name: 'WHITE IN MILK TONER', description: 'Sanfter, feuchtigkeitsspendender Toner (300ml) mit Milchproteinen.' },
+            [Language.KR]: { name: '화이트 인 밀크 토너', description: '300ml 대용량 순한 보습 토너. 우유 단백질 성분이 피부를 맑고 촉촉하게 가꿔줍니다.' }
         }
     },
     {
@@ -531,12 +591,16 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1RRo3FBbWsTrSnue-CqwQD44ZWpv3oxty'),
         subNeed: ['mask'],
         tags: ['Aesthetic', 'Total'],
+        snsFeedback: `
+            <p>Gaining traction in Europe (via retailers like MiiN Cosmetics) and globally as a unique "self-care" gift item due to its distinct magazine-style packaging.</p>
+        `,
         translations: {
             [Language.ES]: { name: 'SELF AESTHETIC MASK', description: 'Mascarillas especializadas para el cuidado integral de cada parte del cuerpo.' },
             [Language.JP]: { name: 'セルフエステマスク', description: '全身を磨き上げる部位別専門マスク。おうちで本格エステ。' },
             [Language.ME]: { name: 'أقنعة سيلف إستيتيك', description: 'أقنعة جمالية متخصصة للعناية بكل جزء من الجسم.' },
             [Language.FR]: { name: 'SELF AESTHETIC MASQUE', description: 'Masques esthétiques experts pour chaque zone du corps.' },
-            [Language.DE]: { name: 'SELF AESTHETIC MASKE', description: 'Spezialisierte Wirkstoffmasken für die gezielte Pflege jeder Körperpartie.' }
+            [Language.DE]: { name: 'SELF AESTHETIC MASKE', description: 'Spezialisierte Wirkstoffmasken für die gezielte Pflege jeder Körperpartie.' },
+            [Language.KR]: { name: '셀프 에스테틱 마스크', description: '머리부터 발끝까지, 집에서 즐기는 부위별 맞춤 에스테틱 홈케어.' }
         }
     },
     {
@@ -552,7 +616,8 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'クレンジングオイル', description: '韓国産の米エキス配合。肌への負担を抑えながらメイクを完璧にオフ。' },
             [Language.ME]: { name: 'زيت تنظيف أميل', description: 'زيت تنظيف الأرز الكوري اللطيف لإزالة المكياج والشوائب.' },
             [Language.FR]: { name: 'HUILE NETTOYANTE AMILL', description: "Huile démaquillante au riz coréen pour un nettoyage en douceur." },
-            [Language.DE]: { name: 'AMILL REINIGUNGSÖL', description: 'Mildes Reinigungsöl mit koreanischem Reis zur sanften Entfernung von Unreinheiten.' }
+            [Language.DE]: { name: 'AMILL REINIGUNGSÖL', description: 'Mildes Reinigungsöl mit koreanischem Reis zur sanften Entfernung von Unreinheiten.' },
+            [Language.KR]: { name: '에이밀 클렌징 오일', description: '순한 쌀겨 성분이 메이크업을 부드럽게 녹여주는 저자극 클렌징 오일.' }
         }
     },
     {
@@ -568,7 +633,8 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'クレンジングフォーム', description: '韓国産の米エキス配合。肌への負担を抑えながらメイクを完璧にオフ。' },
             [Language.ME]: { name: 'رغوة تنظيف أميل', description: 'رغوة كريمية منظفة تنقي المسام وتحافظ على رطوبة البشرة.' },
             [Language.FR]: { name: 'MOUSSE NETTOYANTE AMILL', description: 'Nettoyant onctueux aux grains pour purifier sans dessécher.' },
-            [Language.DE]: { name: 'AMILL REINIGUNGSSCHAUM', description: 'Cremiger Reinigungsschaum auf Getreidebasis für porentiefe Reinheit.' }
+            [Language.DE]: { name: 'AMILL REINIGUNGSSCHAUM', description: 'Cremiger Reinigungsschaum auf Getreidebasis für porentiefe Reinheit.' },
+            [Language.KR]: { name: '에이밀 클렌징 폼', description: '곡물 에너지로 모공 속 노폐물까지 말끔하게 씻어내는 크리미한 폼.' }
         }
     },
     {
@@ -584,7 +650,8 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'バブルフォーム', description: 'ワンプッシュで極細泡。穀物の力で毛穴の奥までクレンジング。' },
             [Language.ME]: { name: 'رغوة فقاعية منظفة', description: 'منظف فقاعي فوري لتنقية البشرة بالحبوب بعمق.' },
             [Language.FR]: { name: 'AMILL BUBBLE FOAM', description: 'Micro-bulles instantanées pour une purification aux céréales.' },
-            [Language.DE]: { name: 'AMILL BUBBLE FOAM', description: 'Mikroblasen-Reiniger für eine sanfte und gründliche Reinigung.' }
+            [Language.DE]: { name: 'AMILL BUBBLE FOAM', description: 'Mikroblasen-Reiniger für eine sanfte und gründliche Reinigung.' },
+            [Language.KR]: { name: '에이밀 버블 폼', description: '풍성한 마이크로 버블이 자극 없이 딥 클렌징을 도와주는 곡물 버블 폼.' }
         }
     },
     {
@@ -595,44 +662,58 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1wqzQKpP9ufrkpsYyhTW2ROtzNqG-WbdY'),
         subNeed: ['wrinkle_eye'],
         tags: ['Retinol', 'Instant'],
+        snsFeedback: `
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Market Solution:</strong> Positioned as a non-invasive alternative to clinical procedures, targeting eye bags, dark circles, and fine lines.</li>
+                <li><strong>Rapid Efficacy:</strong> The primary marketing claim driving consumer interest is its speed; reviews highlight its ability to reduce the appearance of eye bags and fine lines within 60 seconds.</li>
+            </ul>
+        `,
         translations: {
             [Language.ES]: { name: 'CREMA RETINOL OJOS', description: 'Efecto lifting inmediato. Reduce arrugas y bolsas en solo 1 minuto.' },
             [Language.JP]: { name: 'レチノールボリュームアイバッククリーム', description: '1分で目元の印象を変化させる。シワを目立ちにくくし、ハリを与えるアイバッグクリーム。' },
-            [Language.ME]: { name: 'كريم الريتينول للعين', description: 'تقليل فوري للتجاعيد وشد منطقة تحت العين في دقيقة واحدة.' },
-            [Language.FR]: { name: 'CRÈME RÉTINOL YEUX', description: 'Réduction des rides et effet lifting instantané en 1 min.' },
-            [Language.DE]: { name: 'RETINOL AUGENCREME', description: 'Sofortige Faltenminderung und Lifting-Effekt für die Augenpartie in nur 1 Minute.' }
+            [Language.ME]: { name: 'كريم الريتينول للعين', description: 'تقليل فوري للتجاعيد وتأثير شد لمنطقة تحت العين في دقيقة واحدة.' },
+            [Language.FR]: { name: 'CRÈME YEUX RÉTINOL', description: 'Réduction instantanée des rides et effet lifting en 1 minute.' },
+            [Language.DE]: { name: 'RETINOL AUGENCREME', description: 'Sofortige Faltenreduzierung und Lifting-Effekt für die Augenpartie.' },
+            [Language.KR]: { name: '레티놀 볼륨 아이백 크림', description: '단 1분 만에 경험하는 기적. 눈밑 지방과 주름을 즉각적으로 개선하는 리프팅 크림.' }
         }
     },
     {
         id: 'coscell-neck',
         brand: 'COSCELL',
-        name: 'RETINO VOLUME NECK CREAM',
-        description: 'Restores firmness and smooths neck wrinkles with rapid-action retinol.',
-        imageUrl: getDriveUrl('1-8krAOeFH7UONpmzLkXnn6gnRJRdU7Dh'),
+        name: 'NECK CREAM',
+        description: 'Advanced neck cream tailored to smooth out wrinkles and restore firmness.',
+        imageUrl: getDriveUrl('1w-8d0j5cOpJ_2T8qT2Y6JDvVngfW-Q7L'),
         subNeed: ['wrinkle_neck'],
-        tags: ['NeckCare', 'Firming'],
+        tags: ['Firming', 'Smooth'],
         translations: {
-            [Language.ES]: { name: 'CREMA DE CUELLO RETINO', description: 'Trata las arrugas del cuello y recupera la firmeza perdida al instante.' },
-            [Language.JP]: { name: 'ネックボリュームクリーム', description: '年齢の出やすい首元のシワに集中アプローチ。1分でピンとしたハリを実現。' },
-            [Language.ME]: { name: 'كريم الرقبة ريتينو', description: 'يستهدف تجاعيد الرقبة ويعيد إليها مرونتها وشدها بفاعلية.' },
-            [Language.FR]: { name: 'CRÈME COU RÉTINOL', description: 'Lisse les rides du cou et restaure la fermeté de la peau.' },
-            [Language.DE]: { name: 'RETINO HALSCREME', description: 'Strafft die Halspartie und glättet Fältchen mit hochwirksamem Retinol.' }
+            [Language.ES]: { name: 'CREMA CUELLO', description: 'Crema avanzada para alisar arrugas y restaurar la firmeza del cuello.' },
+            [Language.JP]: { name: 'ネッククリーム', description: '首元のシワをケアし、ハリを取り戻す専用クリーム。' },
+            [Language.ME]: { name: 'كريم الرقبة', description: 'كريم متطور للرقبة مصمم لتنعيم التجاعيد واستعادة المرونة.' },
+            [Language.FR]: { name: 'CRÈME COU', description: 'Crème avancée pour lisser les rides et raffermir le cou.' },
+            [Language.DE]: { name: 'HALS CREME', description: 'Fortschrittliche Halscreme zur Glättung von Falten und Straffung.' },
+            [Language.KR]: { name: '넥 크림', description: '목 주름을 집중 케어하여 매끈하고 탄력 있는 목 라인을 완성합니다.' }
         }
     },
     {
         id: 'coscell-serum',
         brand: 'COSCELL',
         name: 'RETINO GALVANIC SERUM 100',
-        description: 'Clinical grade retinol serum with a galvanic finish for maximum absorption.',
-        imageUrl: getDriveUrl('1Mb1ec7Dx1ZnXjlgZejBJ0ugmiHcdW6oT'),
+        description: 'Microcurrent-inspired serum that boosts retinol absorption for maximum efficacy.',
+        imageUrl: getDriveUrl('1qI6G5ZfCgP44_Qn4r0qE1O0T0k2d8r'),
         subNeed: ['serum_care'],
-        tags: ['Galvanic', 'Advanced'],
+        tags: ['Galvanic', 'Boost'],
+        snsFeedback: `
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Innovative Technology (Galvanic):</strong> The formulation incorporates Microcurrent (Galvanic) technology. This delivery system allows the Retinol to penetrate deeper into the skin without causing the irritation (redness or flaking) typically associated with retinoids, making it suitable for the sensitive periorbital area.</li>
+            </ul>
+        `,
         translations: {
-            [Language.ES]: { name: 'RETINO GALVANIC SERUM', description: 'Sérum de retinol clínico con acabado galvánico para absorción total.' },
-            [Language.JP]: { name: 'ガルバニックセラム', description: '美容成分を肌の奥まで届ける。レチノールを高配合した次世代セラム。' },
-            [Language.ME]: { name: 'سيروم ريتينو جالفانيك', description: 'سيروم ريتينول طبي مطور مع تقنية الجلفانيك لامتصاص أقصى.' },
-            [Language.FR]: { name: 'SÉRUM GALVANIQUE RÉTINOL', description: 'Sérum rétinol haute performance pour une fermeté absolue.' },
-            [Language.DE]: { name: 'RETINO GALVANIK SERUM', description: 'Klinisch reines Retinol-Serum mit Galvanik-Technologie für maximale Aufnahme.' }
+            [Language.ES]: { name: 'SÉRUM GALVÁNICO', description: 'Sérum inspirado en microcorrientes que potencia la absorción del retinol.' },
+            [Language.JP]: { name: 'レチノガルバニックセラム100', description: '美顔器の原理を応用。レチノールの吸収を極大化し、肌の奥まで届けます。' },
+            [Language.ME]: { name: 'سيروم جلفاني', description: 'سيروم مستوحى من التيارات الدقيقة يعزز امتصاص الريتينول.' },
+            [Language.FR]: { name: 'SÉRUM GALVANIQUE', description: 'Sérum inspiré des micro-courants pour une absorption maximale du rétinol.' },
+            [Language.DE]: { name: 'GALVANIC SERUM', description: 'Von Mikrostrom inspiriertes Serum, das die Retinolaufnahme verstärkt.' },
+            [Language.KR]: { name: '레티노 갈바닉 세럼 100', description: '갈바닉 미세전류 기술로 레티놀 흡수율을 극대화한 고기능성 세럼.' }
         }
     },
     {
@@ -648,7 +729,8 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'グリーンパパイヤPDRN毛穴アンプル', description: '毛穴の目立ちを抑え、なめらかな肌質へ整える集中美容液。' },
             [Language.ME]: { name: 'أمبولة البابايا PDRN', description: 'أمبولة مركزة لتصغير المسام وتحسين ملمس البشرة بتقنية PDRN.' },
             [Language.FR]: { name: 'AMPOULE PAPAYE PDRN', description: 'Ampoule concentrée pour affiner les pores et lisser le grain de peau.' },
-            [Language.DE]: { name: 'GRÜNE PAPAYA AMPOULE', description: 'Konzentrat zur Porenverfeinerung und Hautglättung auf PDRN-Basis.' }
+            [Language.DE]: { name: 'GRÜNE PAPAYA AMPOULE', description: 'Konzentrat zur Porenverfeinerung und Hautglättung auf PDRN-Basis.' },
+            [Language.KR]: { name: '그린 파파야 PDRN 앰플', description: 'PDRN 성분이 모공을 촘촘하게 케어하고 피부결을 매끈하게 정돈해주는 고농축 앰플.' }
         }
     },
     {
@@ -664,7 +746,8 @@ export const PRODUCTS: Product[] = [
             [Language.JP]: { name: 'グリーンパパイヤPDRNゴマージュフォーム', description: '古い角質を優しくオフ。洗うたびに透明感あふれる素肌へ。' },
             [Language.ME]: { name: 'رغوة البابايا المقشرة', description: 'رغوة منظفة مقشرة تزيل الشوائب وتنقي سطح البشرة.' },
             [Language.FR]: { name: 'MOUSSE GOMMAGE PAPAYE', description: 'Mousse exfoliante douce pour un teint lisse et clarifié.' },
-            [Language.DE]: { name: 'GREEN PAPAYA PEELINGSCHAUM', description: 'Verfeinernder Peelingschaum für ein seidig glattes Hautgefühl.' }
+            [Language.DE]: { name: 'GREEN PAPAYA PEELINGSCHAUM', description: 'Verfeinernder Peelingschaum für ein seidig glattes Hautgefühl.' },
+            [Language.KR]: { name: '그린 파파야 고마쥬 폼', description: '묵은 각질과 노폐물을 부드럽게 제거하여 맑고 깨끗한 피부로 가꿔주는 고마쥬 폼.' }
         }
     },
     {

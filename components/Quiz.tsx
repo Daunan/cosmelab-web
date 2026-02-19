@@ -36,6 +36,7 @@ export default function Quiz({ locale }: QuizProps) {
         setStep(QuizStepId.START);
         setSelectedCategory(null);
         setSelectedSubNeed(null);
+        setFeedbackProduct(null); // Reset feedback product on quiz reset
     };
 
     const matchedProducts = PRODUCTS.filter(p =>
@@ -50,6 +51,41 @@ export default function Quiz({ locale }: QuizProps) {
 
     return (
         <div className="w-full max-w-6xl mx-auto px-4 py-12 min-h-[80vh] flex flex-col items-center justify-center font-sans relative">
+
+            {/* SNS Feedback Modal */}
+            <AnimatePresence>
+                {feedbackProduct && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4"
+                        onClick={() => setFeedbackProduct(null)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative shadow-2xl"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setFeedbackProduct(null)}
+                                className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <h3 className="text-xl font-bold mb-4 border-b pb-2">한국 및 글로벌 고객들의 SNS 피드백</h3>
+                            <div
+                                className="prose prose-sm max-w-none text-gray-700 leading-relaxed"
+                                dangerouslySetInnerHTML={{ __html: PRODUCTS.find(p => p.id === feedbackProduct)?.snsFeedback || '' }}
+                            />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Language Switcher */}
             <div className="absolute top-4 right-4 flex flex-wrap justify-end gap-3 z-50">
@@ -259,9 +295,20 @@ export default function Quiz({ locale }: QuizProps) {
                                                 </span>
                                             ))}
                                         </div>
-                                        <p className="text-gray-600 mb-8 leading-relaxed">
+                                        <p className="text-gray-600 mb-6 flex-grow leading-relaxed">
                                             {product.translations?.[currentLang]?.description || product.description}
                                         </p>
+
+                                        {/* SNS Feedback Button (Only if available) */}
+                                        {product.snsFeedback && (
+                                            <button
+                                                onClick={() => setFeedbackProduct(product.id)}
+                                                className="w-full mb-3 py-2 px-4 bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 font-semibold rounded-xl text-sm hover:from-pink-100 hover:to-purple-100 transition-all border border-pink-100 flex items-center justify-center gap-2 group"
+                                            >
+                                                <Sparkles className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
+                                                한국 및 글로벌 고객들의 SNS 피드백
+                                            </button>
+                                        )}
 
                                         <div className="flex flex-wrap gap-4 w-full">
                                             <a
