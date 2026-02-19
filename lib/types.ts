@@ -45,7 +45,7 @@ export interface Product {
     subNeed: string[];
     tags: string[];
     translations?: Partial<Record<string, LocalizedContent>>;
-    snsFeedback?: string; // HTML or text for SNS feedback
+    snsFeedback?: Partial<Record<string, string>>; // Localized HTML content for SNS feedback
 }
 
 export interface CategoryOption {

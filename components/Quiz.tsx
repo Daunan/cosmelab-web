@@ -78,10 +78,10 @@ export default function Quiz({ locale }: QuizProps) {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
-                            <h3 className="text-xl font-bold mb-4 border-b pb-2">한국 및 글로벌 고객들의 SNS 피드백</h3>
+                            <h3 className="text-xl font-bold mb-4 border-b pb-2">{t.snsFeedbackBtn}</h3>
                             <div
                                 className="prose prose-sm max-w-none text-gray-700 leading-relaxed"
-                                dangerouslySetInnerHTML={{ __html: PRODUCTS.find(p => p.id === feedbackId)?.snsFeedback || '' }}
+                                dangerouslySetInnerHTML={{ __html: PRODUCTS.find(p => p.id === feedbackId)?.snsFeedback?.[currentLang] || '' }}
                             />
                         </motion.div>
                     </motion.div>
