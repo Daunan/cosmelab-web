@@ -21,6 +21,7 @@ export default function Quiz({ locale }: QuizProps) {
     const [step, setStep] = useState<QuizStepId>(QuizStepId.START);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [selectedSubNeed, setSelectedSubNeed] = useState<string | null>(null);
+    const [feedbackProduct, setFeedbackProduct] = useState<string | null>(null);
 
     const handleCategorySelect = (catId: Category) => {
         setSelectedCategory(catId);
