@@ -1045,12 +1045,14 @@ export const PRODUCTS: Product[] = [
         imageUrl: getDriveUrl('1wqzQKpP9ufrkpsYyhTW2ROtzNqG-WbdY'),
         subNeed: ['wrinkle_eye'],
         tags: ['Retinol', 'Instant'],
-        snsFeedback: `
-            <ul class="list-disc pl-5 space-y-1 text-sm">
-                <li><strong>Market Solution:</strong> Positioned as a non-invasive alternative to clinical procedures, targeting eye bags, dark circles, and fine lines.</li>
-                <li><strong>Rapid Efficacy:</strong> The primary marketing claim driving consumer interest is its speed; reviews highlight its ability to reduce the appearance of eye bags and fine lines within 60 seconds.</li>
-            </ul>
-        `,
+        snsFeedback: {
+            [Language.US]: `
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li><strong>Market Solution:</strong> Positioned as a non-invasive alternative to clinical procedures, targeting eye bags, dark circles, and fine lines.</li>
+                    <li><strong>Rapid Efficacy:</strong> The primary marketing claim driving consumer interest is its speed; reviews highlight its ability to reduce the appearance of eye bags and fine lines within 60 seconds.</li>
+                </ul>
+            `
+        },
         translations: {
             [Language.ES]: { name: 'CREMA RETINOL OJOS', description: 'Efecto lifting inmediato. Reduce arrugas y bolsas en solo 1 minuto.' },
             [Language.JP]: { name: 'レチノールボリュームアイバッククリーム', description: '1分で目元の印象を変化させる。シワを目立ちにくくし、ハリを与えるアイバッグクリーム。' },
