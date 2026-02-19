@@ -307,7 +307,7 @@ export default function Quiz({ locale }: QuizProps) {
                                                 className="w-full mb-3 py-2 px-4 bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 font-semibold rounded-xl text-sm hover:from-pink-100 hover:to-purple-100 transition-all border border-pink-100 flex items-center justify-center gap-2 group"
                                             >
                                                 <Sparkles className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
-                                                한국 및 글로벌 고객들의 SNS 피드백
+                                                {t.snsFeedbackBtn || "SNS Feedback from global"}
                                             </button>
                                         )}
 

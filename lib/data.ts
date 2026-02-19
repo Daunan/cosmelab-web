@@ -20,7 +20,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "Discover the synergy of Korea's finest beauty innovations. Expertly curated solutions from Berrisom, G9SKIN, AMILL, and COSCELL."
         },
         phases: ["PHASE 01: Care Focus", "PHASE 02: Key Concern", "Your Tailored Solution"],
-        instructions: ["Select your primary care focus", "Identify your main skin concern", "We have selected these premium essentials for you:"]
+        instructions: ["Select your primary care focus", "Identify your main skin concern", "We have selected these premium essentials for you:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.ES]: {
         start: "COMENZAR DIAGNÓSTICO",
@@ -39,7 +40,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "Descubra la excelencia de la K-Beauty a través de nuestras prestigiosas marcas globales."
         },
         phases: ["PASO 01: Categoría", "PASO 02: Preocupación", "Tu Rutina Experta"],
-        instructions: ["Seleccione el área de cuidado", "¿Cuál es su principal necesidad?", "Hemos seleccionado estos productos esenciales para su perfil:"]
+        instructions: ["Seleccione el área de cuidado", "¿Cuál es su principal necesidad?", "Hemos seleccionado estos productos esenciales para su perfil:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.ME]: {
         start: "ابدأ التشخيص الآن",
@@ -58,7 +60,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "اكتشفوا الحل الأمثل للعناية بالبشرة من خلال علاماتنا التجارية المتميزة والأكثر مبيعاً."
         },
         phases: ["الخطوة 01: الفئة", "الخطوة 02: الاهتمام", "الروتين الموصى به"],
-        instructions: ["يرجى اختيار فئة العناية", "حدد احتياجات بشرتك بدقة", "تم اختيار هذه المنتجات بعناية لتناسب متطلبات بشرتكم:"]
+        instructions: ["يرجى اختيار فئة العناية", "حدد احتياجات بشرتك بدقة", "تم اختيار هذه المنتجات بعناية لتناسب متطلبات بشرتكم:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.JP]: {
         start: "診断を始める",
@@ -77,7 +80,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "Berrisom、G9SKIN、AMILL、COSCELL。厳選された韓国コスメで、あなたの理想の肌を叶えます。"
         },
         phases: ["STEP 01: カテゴリー", "STEP 02: お悩み解決", "あなたへの推奨ルーティン"],
-        instructions: ["ケアカテゴリーを選択してください", "具体的なお悩みをお聞かせください", "お悩みに合わせた最適な製品をご提案いたします："]
+        instructions: ["ケアカテゴリーを選択してください", "具体的なお悩みをお聞かせください", "お悩みに合わせた最適な製品をご提案いたします："],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.FR]: {
         start: "COMMENCER LE DIAGNOSTIC",
@@ -96,7 +100,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "L'excellence de la K-Beauty au service de votre peau à travers nos marques premium."
         },
         phases: ["ÉTAPE 01 : Focus", "ÉTAPE 02 : Besoins", "Votre Routine Idéale"],
-        instructions: ["Choisissez votre catégorie de soin", "Identifiez votre besoin spécifique", "Voici notre sélection de soins experts adaptée à votre profil :"]
+        instructions: ["Choisissez votre catégorie de soin", "Identifiez votre besoin spécifique", "Voici notre sélection de soins experts adaptée à votre profil :"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.DE]: {
         start: "DIAGNOSE STARTEN",
@@ -115,7 +120,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "Erleben Sie die Synergie unserer Hochleistungsmarken für ein vollendetes Hautbild."
         },
         phases: ["SCHRITT 01: Fokus", "SCHRITT 02: Anliegen", "Ihre Pflegeroutine"],
-        instructions: ["Wählen Sie einen Pflegebereich", "Welches Hautbedürfnis steht im Fokus?", "Diese Produkte wurden speziell für Ihr Profil ausgewählt:"]
+        instructions: ["Wählen Sie einen Pflegebereich", "Welches Hautbedürfnis steht im Fokus?", "Diese Produkte wurden speziell für Ihr Profil ausgewählt:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.KR]: {
         start: "진단 시작하기",
@@ -134,7 +140,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
             desc: "베리썸, G9SKIN, 에이밀, 코스셀. 엄선된 4대 K-뷰티 브랜드의 시너지를 경험하세요."
         },
         phases: ["STEP 01: 집중 케어", "STEP 02: 피부 고민", "맞춤 솔루션"],
-        instructions: ["가장 관심 있는 케어 분야를 선택해주세요", "현재 가장 큰 피부 고민은 무엇인가요?", "고객님의 피부 타입에 최적화된 솔루션을 제안합니다:"]
+        instructions: ["가장 관심 있는 케어 분야를 선택해주세요", "현재 가장 큰 피부 고민은 무엇인가요?", "고객님의 피부 타입에 최적화된 솔루션을 제안합니다:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.CN]: {
         start: "开始诊断",
@@ -153,7 +160,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
         },
         sidebar: ["首页", "护理重点", "肌肤困扰", "推荐结果"],
         phases: ["第一步：重点护理", "第二步：肌肤困扰", "您的专属方案"],
-        instructions: ["请选择您最关注的护理类别", "请确认您的主要肌肤困扰", "为您精心挑选的护肤方案如下："]
+        instructions: ["请选择您最关注的护理类别", "请确认您的主要肌肤困扰", "为您精心挑选的护肤方案如下："],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.RU]: {
         start: "НАЧАТЬ ДИАГНОСТИКУ",
@@ -172,7 +180,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
         },
         sidebar: ["ГЛАВНАЯ", "УХОД", "ПРОБЛЕМЫ", "РЕШЕНИЕ"],
         phases: ["ЭТАП 01: Фокус", "ЭТАП 02: Проблема", "Ваш уход"],
-        instructions: ["Выберите категорию ухода", "Какая у вас основная проблема кожи?", "Мы подобрали эти продукты для вас:"]
+        instructions: ["Выберите категорию ухода", "Какая у вас основная проблема кожи?", "Мы подобрали эти продукты для вас:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     },
     [Language.EL]: {
         start: "ΕΝΑΡΞΗ",
@@ -191,7 +200,8 @@ export const UI_TRANSLATIONS: Record<string, any> = {
         },
         sidebar: ["ΑΡΧΙΚΗ", "ΦΡΟΝΤΙΔΑ", "ΑΝΑΓΚΕΣ", "ΠΡΟΤΑΣΗ"],
         phases: ["ΒΗΜΑ 01: Κατηγορία", "ΒΗΜΑ 02: Ανάγκη", "Η Πρότασή μας"],
-        instructions: ["Επιλέξτε μια κατηγορία φροντίδας", "Ποια είναι η κύρια ανάγκη της επιδερμίδας σας;", "Επιλέξαμε αυτά τα προϊόντα για εσάς:"]
+        instructions: ["Επιλέξτε μια κατηγορία φροντίδας", "Ποια είναι η κύρια ανάγκη της επιδερμίδας σας;", "Επιλέξαμε αυτά τα προϊόντα για εσάς:"],
+        snsFeedbackBtn: "SNS Feedback from global"
     }
 };
 
@@ -725,8 +735,6 @@ export const PRODUCTS: Product[] = [
         subNeed: ['green_papaya'],
         tags: ['PDRN', 'PoreCare'],
         translations: {
-            [Language.ES]: { name: 'AMPOLLA PAPAYA PDRN', description: 'Minimiza los poros y redefine la textura de la piel con PDRN vegetal.' },
-            [Language.JP]: { name: 'グリーンパパイヤPDRN毛穴アンプル', description: '毛穴の目立ちを抑え、なめらかな肌質へ整える集中美容液。' },
             [Language.ME]: { name: 'أمبولة البابايا PDRN', description: 'أمبولة مركزة لتصغير المسام وتحسين ملمس البشرة بتقنية PDRN.' },
             [Language.FR]: { name: 'AMPOULE PAPAYE PDRN', description: 'Ampoule concentrée pour affiner les pores et lisser le grain de peau.' },
             [Language.DE]: { name: 'GRÜNE PAPAYA AMPOULE', description: 'Konzentrat zur Porenverfeinerung und Hautglättung auf PDRN-Basis.' },
