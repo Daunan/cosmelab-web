@@ -21,7 +21,7 @@ export default function Quiz({ locale }: QuizProps) {
     const [step, setStep] = useState<QuizStepId>(QuizStepId.START);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [selectedSubNeed, setSelectedSubNeed] = useState<string | null>(null);
-    const [feedbackProduct, setFeedbackProduct] = useState<string | null>(null);
+    const [feedbackId, setFeedbackId] = useState<string | null>(null);
 
     const handleCategorySelect = (catId: Category) => {
         setSelectedCategory(catId);
@@ -37,7 +37,7 @@ export default function Quiz({ locale }: QuizProps) {
         setStep(QuizStepId.START);
         setSelectedCategory(null);
         setSelectedSubNeed(null);
-        setFeedbackProduct(null); // Reset feedback product on quiz reset
+        setFeedbackId(null); // Reset feedback on quiz reset
     };
 
     const matchedProducts = PRODUCTS.filter(p =>
@@ -55,13 +55,13 @@ export default function Quiz({ locale }: QuizProps) {
 
             {/* SNS Feedback Modal */}
             <AnimatePresence>
-                {feedbackProduct && (
+                {feedbackId && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4"
-                        onClick={() => setFeedbackProduct(null)}
+                        onClick={() => setFeedbackId(null)}
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
@@ -71,7 +71,7 @@ export default function Quiz({ locale }: QuizProps) {
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
-                                onClick={() => setFeedbackProduct(null)}
+                                onClick={() => setFeedbackId(null)}
                                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +81,7 @@ export default function Quiz({ locale }: QuizProps) {
                             <h3 className="text-xl font-bold mb-4 border-b pb-2">한국 및 글로벌 고객들의 SNS 피드백</h3>
                             <div
                                 className="prose prose-sm max-w-none text-gray-700 leading-relaxed"
-                                dangerouslySetInnerHTML={{ __html: PRODUCTS.find(p => p.id === feedbackProduct)?.snsFeedback || '' }}
+                                dangerouslySetInnerHTML={{ __html: PRODUCTS.find(p => p.id === feedbackId)?.snsFeedback || '' }}
                             />
                         </motion.div>
                     </motion.div>
@@ -303,7 +303,7 @@ export default function Quiz({ locale }: QuizProps) {
                                         {/* SNS Feedback Button (Only if available) */}
                                         {product.snsFeedback && (
                                             <button
-                                                onClick={() => setFeedbackProduct(product.id)}
+                                                onClick={() => setFeedbackId(product.id)}
                                                 className="w-full mb-3 py-2 px-4 bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 font-semibold rounded-xl text-sm hover:from-pink-100 hover:to-purple-100 transition-all border border-pink-100 flex items-center justify-center gap-2 group"
                                             >
                                                 <Sparkles className="w-4 h-4 text-pink-400 group-hover:scale-110 transition-transform" />
