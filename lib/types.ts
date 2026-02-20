@@ -23,7 +23,8 @@ export enum Language {
     RU = 'ru', // Russia (Added)
     KR = 'ko', // Korea
     CN = 'zh', // China
-    HU = 'hu'  // Hungary (Added)
+    HU = 'hu', // Hungary
+    ET = 'et'  // Estonia (Added)
 }
 
 export interface LocalizedContent {
