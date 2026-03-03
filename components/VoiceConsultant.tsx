@@ -195,6 +195,11 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                 if (currentLang === Language.KR) fallbackMsg = "고객님의 주요 피부 고민을 파악하지 못했습니다. 주름, 건성, 여드름 등 어떤 점이 가장 고민이신지 구체적으로 말씀해 주시겠어요?";
                 if (currentLang === Language.JP) fallbackMsg = "具体的なお悩みを聞き取れませんでした。シワ、乾燥、ニキビなど、どのような点でお悩みか教えていただけますか？";
                 if (currentLang === Language.ES) fallbackMsg = "No pude detectar ninguna preocupación específica de la piel. ¿Podrías decirme si tienes problemas con arrugas, sequedad o acné?";
+                if (currentLang === Language.FR) fallbackMsg = "Je n'ai détecté aucun problème de peau spécifique. Pourriez-vous me dire si vous avez des problèmes de rides, de sécheresse ou d'acné ?";
+                if (currentLang === Language.DE) fallbackMsg = "Ich konnte keine spezifischen Hautprobleme erkennen. Können Sie mir sagen, ob Sie Probleme mit Falten, Trockenheit oder Akne haben?";
+                if (currentLang === Language.RU) fallbackMsg = "Я не смог обнаружить конкретных проблем с кожей. Не могли бы вы сказать мне, есть ли у вас проблемы с морщинами, сухостью или прыщами?";
+                if (currentLang === Language.EL) fallbackMsg = "Δεν μπόρεσα να εντοπίσω συγκεκριμένες ανησυχίες για το δέρμα. Μπορείτε να μου πείτε εάν έχετε προβλήματα με ρυτίδες, ξηρότητα ή ακμή;";
+                if (currentLang === Language.ME) fallbackMsg = "لم أتمكن من اكتشاف أي مخاوف محددة تتعلق بالبشرة. هل يمكنك أن تخبرني إذا كان لديك أي مشاكل مع التجاعيد أو الجفاف أو حب الشباب؟";
 
                 setBoxMessage(fallbackMsg);
                 speak(fallbackMsg);
@@ -239,6 +244,11 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
             if (currentLang === Language.ES) responseMsg = `Encontré la combinación perfecta para ti: ${pName}. Mira los detalles abajo.`;
             if (currentLang === Language.HU) responseMsg = `Megtaláltam a tökéletes terméket az Ön számára: ${pName}. Tekintse meg a részleteket.`;
             if (currentLang === Language.ET) responseMsg = `Leidsin teile ideaalse toote: ${pName}. Vaadake üksikasju.`;
+            if (currentLang === Language.FR) responseMsg = `J'ai trouvé la correspondance parfaite pour vous : ${pName}. Vérifiez les détails ci-dessous.`;
+            if (currentLang === Language.DE) responseMsg = `Ich habe das perfekte Produkt für Sie gefunden: ${pName}. Überprüfen Sie die Details unten.`;
+            if (currentLang === Language.RU) responseMsg = `Я нашел для вас идеальное совпадение: ${pName}. Проверьте детали ниже.`;
+            if (currentLang === Language.EL) responseMsg = `Βρήκα το τέλειο ταίρι για εσάς: Το ${pName}. Ελέγξτε τις λεπτομέρειες παρακάτω.`;
+            if (currentLang === Language.ME) responseMsg = `لقد وجدت التطابق المثالي لك: ${pName}. تحقق من التفاصيل أدناه.`;
 
             setBoxMessage(responseMsg);
             speak(responseMsg);
