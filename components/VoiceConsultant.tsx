@@ -177,7 +177,7 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
 
         // Determine winner
         let maxScore = 0;
-        let winnerType = 'coscell_vita'; // Default fallback
+        let winnerType = 'coscell_vita';
 
         if (scores.berrisom_collagen > maxScore) { maxScore = scores.berrisom_collagen; winnerType = 'berrisom_collagen'; }
         if (scores.amill_heartleaf > maxScore) { maxScore = scores.amill_heartleaf; winnerType = 'amill_heartleaf'; }
@@ -187,35 +187,48 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
         if (scores.berrisom_lip > maxScore) { maxScore = scores.berrisom_lip; winnerType = 'berrisom_lip'; }
         if (scores.g9_brow > maxScore) { maxScore = scores.g9_brow; winnerType = 'g9_brow'; }
 
-        // Map winner to specific Product ID
-        const productMap: Record<string, string> = {
-            'berrisom_collagen': 'berrisom-collagen-cream',
-            'coscell_vita': 'coscell-vita-ampoule',
-            'amill_heartleaf': 'amill-heartleaf-foam', // Assuming this exists, fallback to vita if not
-            'g9_barrier': 'g9skin-ceramide-cream', // Assuming we have ceramide
-            'berrisom_cica': 'berrisom-cica-pad', // Assuming
-            'g9_peeling': 'g9skin-grapefruit-pad',
-            'berrisom_lip': 'berrisom-lip-tint',
-            'g9_brow': 'g9skin-choc-choc-brow'
-        };
-
-        matchedProductId = productMap[winnerType];
-
-        // Find product in DB
-        let foundProduct = PRODUCTS.find(p => p.id === matchedProductId);
-
-        // Fallbacks if ID doesn't exact match due to mockup mapping
-        if (!foundProduct) {
-            if (winnerType.includes('vita')) foundProduct = PRODUCTS.find(p => p.name.includes('VITA C'));
-            else if (winnerType.includes('collagen')) foundProduct = PRODUCTS.find(p => p.name.includes('COLLAGEN'));
-            else if (winnerType.includes('lip')) foundProduct = PRODUCTS.find(p => p.name.includes('LIP'));
-            else if (winnerType.includes('peeling') || winnerType.includes('cica') || winnerType.includes('heartleaf')) foundProduct = PRODUCTS.find(p => p.name.includes('PAD') || p.name.includes('FOAM'));
-
-            // Absolute default
-            if (!foundProduct) foundProduct = PRODUCTS[0];
-        }
-
         setTimeout(() => {
+            if (maxScore === 0) {
+                // No keywords matched, prompt user to rephrase
+                setRecommendedProduct(null);
+                let fallbackMsg = "I couldn't detect any specific skin concerns. Could you tell me if you have any trouble with wrinkles, dryness, or acne?";
+                if (currentLang === Language.KR) fallbackMsg = "고객님의 주요 피부 고민을 파악하지 못했습니다. 주름, 건성, 여드름 등 어떤 점이 가장 고민이신지 구체적으로 말씀해 주시겠어요?";
+                if (currentLang === Language.JP) fallbackMsg = "具体的なお悩みを聞き取れませんでした。シワ、乾燥、ニキビなど、どのような点でお悩みか教えていただけますか？";
+                if (currentLang === Language.ES) fallbackMsg = "No pude detectar ninguna preocupación específica de la piel. ¿Podrías decirme si tienes problemas con arrugas, sequedad o acné?";
+
+                setBoxMessage(fallbackMsg);
+                speak(fallbackMsg);
+                return;
+            }
+
+            // Map winner to specific Product ID
+            const productMap: Record<string, string> = {
+                'berrisom_collagen': 'berrisom-collagen-cream',
+                'coscell_vita': 'coscell-vita-ampoule',
+                'amill_heartleaf': 'amill-heartleaf-foam',
+                'g9_barrier': 'g9skin-ceramide-cream',
+                'berrisom_cica': 'berrisom-cica-pad',
+                'g9_peeling': 'g9skin-grapefruit-pad',
+                'berrisom_lip': 'berrisom-lip-tint',
+                'g9_brow': 'g9skin-choc-choc-brow'
+            };
+
+            matchedProductId = productMap[winnerType];
+
+            // Find product in DB
+            let foundProduct = PRODUCTS.find(p => p.id === matchedProductId);
+
+            // Fallbacks if ID doesn't exact match due to mockup mapping
+            if (!foundProduct) {
+                if (winnerType.includes('vita')) foundProduct = PRODUCTS.find(p => p.name.includes('VITA C'));
+                else if (winnerType.includes('collagen')) foundProduct = PRODUCTS.find(p => p.name.includes('COLLAGEN'));
+                else if (winnerType.includes('lip')) foundProduct = PRODUCTS.find(p => p.name.includes('LIP'));
+                else if (winnerType.includes('peeling') || winnerType.includes('cica') || winnerType.includes('heartleaf')) foundProduct = PRODUCTS.find(p => p.name.includes('PAD') || p.name.includes('FOAM'));
+
+                // Absolute default
+                if (!foundProduct) foundProduct = PRODUCTS[0];
+            }
+
             setRecommendedProduct(foundProduct);
             const pName = foundProduct?.translations?.[currentLang]?.name || foundProduct?.name;
 
