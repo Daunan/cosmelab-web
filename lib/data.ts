@@ -1,4 +1,6 @@
 import { Category, Product, Language, CategoryData } from './types';
+export { Language };
+export type { Product };
 
 export const getDriveUrl = (id: string) => `https://lh3.googleusercontent.com/d/${id}`;
 

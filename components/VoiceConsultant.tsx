@@ -1,0 +1,361 @@
+"use client";
+
+import { useState, useEffect, useRef } from 'react';
+import { Mic, MicOff, Bot, X, Sparkles, Volume2, Loader2, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { PRODUCTS, getBuyingLink, BRAND_INTRODUCE_URL } from '@/lib/data';
+import { Language } from '@/lib/types';
+
+// --- Types & Constants ---
+type STTStatus = 'idle' | 'listening' | 'processing' | 'speaking' | 'error';
+
+interface VoiceConsultantProps {
+    currentLang: Language;
+}
+
+// Ensure SpeechRecognition types exist
+declare global {
+    interface Window {
+        SpeechRecognition: any;
+        webkitSpeechRecognition: any;
+    }
+}
+
+export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [status, setStatus] = useState<STTStatus>('idle');
+    const [userText, setUserText] = useState('');
+    const [boxMessage, setBoxMessage] = useState('');
+    const [recommendedProduct, setRecommendedProduct] = useState<any | null>(null);
+
+    // Refs for speech APIS
+    const recognitionRef = useRef<any>(null);
+    const synthRef = useRef<SpeechSynthesis | null>(null);
+
+    // Dynamic UI Text based on current Language
+    const tMapping: Record<string, { title: string; prompt: string; listening: string; processing: string; btnBuy: string; btnBrand: string; }> = {
+        [Language.US]: { title: "AI Voice Consultant", prompt: "Hello! Tap the mic and tell me your age, skin type, and main concern.", listening: "Listening...", processing: "Analyzing...", btnBuy: "Buy Online", btnBrand: "Brand Guide" },
+        [Language.KR]: { title: "AI 음성 컨설턴트", prompt: "안녕하세요! 마이크를 누르고 나이, 피부 타입, 고민을 말씀해 주세요.", listening: "듣고 있어요...", processing: "분석 중...", btnBuy: "구매하기", btnBrand: "브랜드 소개" },
+        [Language.JP]: { title: "AI 音声コンサルタント", prompt: "マイクを押して、年齢、肌質、悩みをお話しください。", listening: "聞いています...", processing: "分析中...", btnBuy: "オンライン購入", btnBrand: "ブランドガイド" },
+        [Language.ES]: { title: "Consultor de Voz IA", prompt: "¡Hola! Toca el micrófono y dime tu edad, tipo de piel y preocupación.", listening: "Escuchando...", processing: "Analizando...", btnBuy: "Comprar", btnBrand: "Guía" },
+        [Language.FR]: { title: "Consultant Vocal IA", prompt: "Appuyez sur le micro et indiquez votre âge, peau et préoccupation.", listening: "Écoute...", processing: "Analyse...", btnBuy: "Acheter", btnBrand: "Guide" },
+        [Language.DE]: { title: "KI-Sprachberater", prompt: "Tippen Sie auf das Mikrofon und nennen Sie mir Ihr Alter, Hauttyp und Anliegen.", listening: "Hört zu...", processing: "Analysiert...", btnBuy: "Kaufen", btnBrand: "Marke" },
+        [Language.ME]: { title: "مستشار صوتي", prompt: "اضغط على الميكروفون وأخبرني بعمرك ونوع بشرتك واهتمامك الرئيسي.", listening: "استماع...", processing: "جارٍ التحليل...", btnBuy: "الشراء", btnBrand: "دليل" },
+        [Language.EL]: { title: "Σύμβουλος φωνής AI", prompt: "Πατήστε το μικρόφωνο και πείτε μου την ηλικία, τον τύπο δέρματος.", listening: "Ακούγοντας...", processing: "Ανάλυση...", btnBuy: "Αγοράστε", btnBrand: "Οδηγός" },
+        [Language.RU]: { title: "Голосовой консультант ИИ", prompt: "Нажмите на микрофон и назовите свой возраст, тип кожи.", listening: "Слушаю...", processing: "Анализ...", btnBuy: "Купить", btnBrand: "Руководство" },
+        [Language.HU]: { title: "AI Hang Tanácsadó", prompt: "Érintse meg a mikrofont, és mondja el életkorát, bőrtípusát.", listening: "Hallgatás...", processing: "Elemzés...", btnBuy: "Vásárlás", btnBrand: "Útmutató" },
+        [Language.ET]: { title: "AI Häälkonsultant", prompt: "Puudutage mikrofoni ja öelge mulle oma vanus, nahatüüp ja mure.", listening: "Kuulamine...", processing: "Analüüs...", btnBuy: "Osta", btnBrand: "Juhend" }
+    };
+
+    const t = tMapping[currentLang as string] || { title: "AI Consultant", prompt: "Tap to speak", listening: "Listening...", processing: "Processing...", btnBuy: "Buy", btnBrand: "Guide" };
+
+    useEffect(() => {
+        // Initialize SpeechSynthesis
+        if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+            synthRef.current = window.speechSynthesis;
+        }
+
+        // Initialize SpeechRecognition
+        if (typeof window !== 'undefined') {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                recognitionRef.current = new SpeechRecognition();
+                recognitionRef.current.continuous = false;
+                recognitionRef.current.interimResults = false;
+
+                // Set language for recognition
+                const langMap: Record<string, string> = {
+                    [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
+                    [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE',
+                    [Language.HU]: 'hu-HU', [Language.ET]: 'et-EE'
+                };
+                recognitionRef.current.lang = langMap[currentLang as string] || 'en-US';
+
+                recognitionRef.current.onresult = (event: any) => {
+                    const transcript = event.results[0][0].transcript;
+                    setUserText(transcript);
+                    processCommand(transcript);
+                };
+
+                recognitionRef.current.onerror = (event: any) => {
+                    console.error("Speech recognition error", event.error);
+                    setStatus('error');
+                    setBoxMessage('Sorry, I couldn\'t hear you. Please try again.');
+                };
+
+                recognitionRef.current.onend = () => {
+                    if (status === 'listening') {
+                        setStatus('processing');
+                    }
+                };
+            }
+        }
+    }, [currentLang, status]);
+
+    // Open/Close Handlers
+    const toggleBox = () => {
+        if (!isOpen) {
+            setBoxMessage(t.prompt);
+            setRecommendedProduct(null);
+            setUserText('');
+        } else {
+            stopSpeaking();
+        }
+        setIsOpen(!isOpen);
+    };
+
+    // Voice Control
+    const startListening = () => {
+        if (recognitionRef.current) {
+            stopSpeaking();
+            setUserText('');
+            setStatus('listening');
+            setBoxMessage(t.listening);
+            setRecommendedProduct(null);
+            recognitionRef.current.start();
+        } else {
+            setBoxMessage("Voice recognition is not supported in this browser.");
+            setStatus('error');
+        }
+    };
+
+    const speak = (text: string) => {
+        if (synthRef.current) {
+            synthRef.current.cancel(); // Stop current speech
+            const utterance = new SpeechSynthesisUtterance(text);
+
+            // Try to match voice lang to UI lang
+            const langMap: Record<string, string> = {
+                [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
+                [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE'
+            };
+            utterance.lang = langMap[currentLang as string] || 'en-US';
+
+            utterance.onstart = () => setStatus('speaking');
+            utterance.onend = () => setStatus('idle');
+            synthRef.current.speak(utterance);
+        }
+    };
+
+    const stopSpeaking = () => {
+        if (synthRef.current) {
+            synthRef.current.cancel();
+            setStatus('idle');
+        }
+    };
+
+    // Keyword Extraction Logic
+    const processCommand = (text: string) => {
+        setStatus('processing');
+        const lowerText = text.toLowerCase();
+
+        // 1. Keyword Dictionary Mapping
+        let matchedProductId = '';
+
+        const keywords = {
+            collagen: ['collagen', 'wrinkle', 'aging', '주름', '탄력', '콜라겐', 'シワ', 'arruga', 'rides', 'falten', 'ráncok', 'kortsud'],
+            vita: ['vitamin', 'brightening', 'dark spot', '미백', '잡티', '비타민', 'シミ', 'manchas', 'taches', 'flecken', 'folt', 'laigud'],
+            heartleaf: ['acne', 'trouble', 'sensitive', '여드름', '트러블', '진정', 'ニキビ', 'acné', 'akne', 'pattanás'],
+            barrier: ['dry', 'moisture', 'ceramide', '건조', '보습', '건성', '乾燥', 'seco', 'sec', 'trocken', 'száraz', 'kuiv'],
+            cica: ['redness', 'calms', 'cica', '홍조', '시카', '赤み', 'rojez', 'rougeur', 'rötung', 'bőrpír', 'punetus'],
+            peel: ['peel', 'dead skin', '각질', '필링', 'ピーリング', 'exfoliación', 'hámlás', 'koorimine'],
+            lip: ['lip', 'tint', '입술', '틴트', '립', 'リップ', 'labio', 'lèvre', 'lippe', 'ajak', 'huul'],
+            eyebrow: ['eye', 'brow', '눈썹', '아이브로우', '眉毛', 'ceja', 'sourcil', 'augenbraue', 'szemöldök', 'kulm']
+        };
+
+        // 2. Simple Scoring
+        let scores = { berrisom_collagen: 0, coscell_vita: 0, amill_heartleaf: 0, g9_barrier: 0, berrisom_cica: 0, g9_peeling: 0, berrisom_lip: 0, g9_brow: 0 };
+
+        if (keywords.collagen.some(k => lowerText.includes(k))) scores.berrisom_collagen += 2;
+        if (keywords.vita.some(k => lowerText.includes(k))) scores.coscell_vita += 2;
+        if (keywords.heartleaf.some(k => lowerText.includes(k))) scores.amill_heartleaf += 2;
+        if (keywords.barrier.some(k => lowerText.includes(k))) scores.g9_barrier += 2;
+        if (keywords.cica.some(k => lowerText.includes(k))) scores.berrisom_cica += 2;
+        if (keywords.peel.some(k => lowerText.includes(k))) scores.g9_peeling += 2;
+        if (keywords.lip.some(k => lowerText.includes(k))) scores.berrisom_lip += 2;
+        if (keywords.eyebrow.some(k => lowerText.includes(k))) scores.g9_brow += 2;
+
+        // Determine winner
+        let maxScore = 0;
+        let winnerType = 'coscell_vita'; // Default fallback
+
+        if (scores.berrisom_collagen > maxScore) { maxScore = scores.berrisom_collagen; winnerType = 'berrisom_collagen'; }
+        if (scores.amill_heartleaf > maxScore) { maxScore = scores.amill_heartleaf; winnerType = 'amill_heartleaf'; }
+        if (scores.g9_barrier > maxScore) { maxScore = scores.g9_barrier; winnerType = 'g9_barrier'; }
+        if (scores.berrisom_cica > maxScore) { maxScore = scores.berrisom_cica; winnerType = 'berrisom_cica'; }
+        if (scores.g9_peeling > maxScore) { maxScore = scores.g9_peeling; winnerType = 'g9_peeling'; }
+        if (scores.berrisom_lip > maxScore) { maxScore = scores.berrisom_lip; winnerType = 'berrisom_lip'; }
+        if (scores.g9_brow > maxScore) { maxScore = scores.g9_brow; winnerType = 'g9_brow'; }
+
+        // Map winner to specific Product ID
+        const productMap: Record<string, string> = {
+            'berrisom_collagen': 'berrisom-collagen-cream',
+            'coscell_vita': 'coscell-vita-ampoule',
+            'amill_heartleaf': 'amill-heartleaf-foam', // Assuming this exists, fallback to vita if not
+            'g9_barrier': 'g9skin-ceramide-cream', // Assuming we have ceramide
+            'berrisom_cica': 'berrisom-cica-pad', // Assuming
+            'g9_peeling': 'g9skin-grapefruit-pad',
+            'berrisom_lip': 'berrisom-lip-tint',
+            'g9_brow': 'g9skin-choc-choc-brow'
+        };
+
+        matchedProductId = productMap[winnerType];
+
+        // Find product in DB
+        let foundProduct = PRODUCTS.find(p => p.id === matchedProductId);
+
+        // Fallbacks if ID doesn't exact match due to mockup mapping
+        if (!foundProduct) {
+            if (winnerType.includes('vita')) foundProduct = PRODUCTS.find(p => p.name.includes('VITA C'));
+            else if (winnerType.includes('collagen')) foundProduct = PRODUCTS.find(p => p.name.includes('COLLAGEN'));
+            else if (winnerType.includes('lip')) foundProduct = PRODUCTS.find(p => p.name.includes('LIP'));
+            else if (winnerType.includes('peeling') || winnerType.includes('cica') || winnerType.includes('heartleaf')) foundProduct = PRODUCTS.find(p => p.name.includes('PAD') || p.name.includes('FOAM'));
+
+            // Absolute default
+            if (!foundProduct) foundProduct = PRODUCTS[0];
+        }
+
+        setTimeout(() => {
+            setRecommendedProduct(foundProduct);
+            const pName = foundProduct?.translations?.[currentLang]?.name || foundProduct?.name;
+
+            // Localized Response message
+            let responseMsg = `I found the perfect match for you: The ${pName}. Check the details below.`;
+            if (currentLang === Language.KR) responseMsg = `고객님을 위한 완벽한 제품을 찾았습니다. 바로 ${pName} 입니다. 자세한 내용은 아래를 확인하세요.`;
+            if (currentLang === Language.JP) responseMsg = `あなたにぴったりの製品を見つけました。${pName} です。詳細は下記をご覧ください。`;
+            if (currentLang === Language.ES) responseMsg = `Encontré la combinación perfecta para ti: ${pName}. Mira los detalles abajo.`;
+            if (currentLang === Language.HU) responseMsg = `Megtaláltam a tökéletes terméket az Ön számára: ${pName}. Tekintse meg a részleteket.`;
+            if (currentLang === Language.ET) responseMsg = `Leidsin teile ideaalse toote: ${pName}. Vaadake üksikasju.`;
+
+            setBoxMessage(responseMsg);
+            speak(responseMsg);
+        }, 1000); // Fake processing delay for UX
+    };
+
+    return (
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.9 }}
+                        className="mb-4 w-80 md:w-96 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col"
+                    >
+                        {/* Header */}
+                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white flex justify-between items-center">
+                            <div className="flex items-center gap-2">
+                                <Bot className="w-5 h-5" />
+                                <span className="font-semibold text-sm">{t.title}</span>
+                            </div>
+                            <button onClick={toggleBox} className="hover:bg-white/20 p-1 rounded-full text-white transition-colors">
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Chat Area */}
+                        <div className="p-5 flex-grow overflow-y-auto max-h-[60vh] flex flex-col gap-4 bg-gray-50/50">
+
+                            {/* User Input Display */}
+                            {userText && (
+                                <div className="self-end bg-blue-100 text-blue-900 px-4 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm">
+                                    "{userText}"
+                                </div>
+                            )}
+
+                            {/* Bot Message */}
+                            <div className="self-start bg-white border border-gray-100 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm text-sm max-w-[95%] shadow-sm flex flex-col gap-2">
+                                <div className="flex items-center gap-2 text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-1">
+                                    Cosmelab AI
+                                </div>
+                                <p className="leading-relaxed">{boxMessage}</p>
+
+                                {status === 'listening' && (
+                                    <div className="flex items-center gap-1 mt-2 text-blue-500">
+                                        <motion.div animate={{ height: [4, 12, 4] }} transition={{ repeat: Infinity, duration: 0.8 }} className="w-1 bg-blue-500 rounded-full" />
+                                        <motion.div animate={{ height: [4, 16, 4] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.1 }} className="w-1 bg-blue-500 rounded-full" />
+                                        <motion.div animate={{ height: [4, 8, 4] }} transition={{ repeat: Infinity, duration: 0.8, delay: 0.2 }} className="w-1 bg-blue-500 rounded-full" />
+                                    </div>
+                                )}
+                                {status === 'processing' && <Loader2 className="w-4 h-4 animate-spin text-purple-500 mt-2" />}
+                            </div>
+
+                            {/* Product Recommendation Card */}
+                            {recommendedProduct && status !== 'processing' && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                                    className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-md mt-2"
+                                >
+                                    <div className="h-32 bg-gray-100 relative w-full">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={recommendedProduct.imageUrl} alt={recommendedProduct.name} className="object-cover w-full h-full" />
+                                    </div>
+                                    <div className="p-4 flex flex-col gap-2">
+                                        <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded w-fit uppercase">{recommendedProduct.brand}</span>
+                                        <h4 className="font-bold text-gray-900 leading-tight">
+                                            {recommendedProduct.translations?.[currentLang]?.name || recommendedProduct.name}
+                                        </h4>
+                                        <p className="text-xs text-gray-500 line-clamp-2">
+                                            {recommendedProduct.translations?.[currentLang]?.description || recommendedProduct.description}
+                                        </p>
+
+                                        <div className="flex gap-2 mt-3 pt-3 border-t border-gray-100">
+                                            <a
+                                                href={getBuyingLink(currentLang, recommendedProduct)}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex-1 bg-black text-white text-xs font-semibold py-2 px-3 rounded-lg text-center hover:bg-gray-800 transition-colors flex items-center justify-center gap-1"
+                                            >
+                                                {t.btnBuy} <ArrowRight className="w-3 h-3" />
+                                            </a>
+                                            <a
+                                                href={BRAND_INTRODUCE_URL}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="flex-1 bg-white text-black border border-black text-xs font-semibold py-2 px-3 rounded-lg text-center hover:bg-gray-50 transition-colors"
+                                            >
+                                                {t.btnBrand}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            )}
+
+                        </div>
+
+                        {/* Action Box */}
+                        <div className="p-4 bg-white border-t border-gray-100 flex flex-col items-center justify-center gap-2">
+                            <button
+                                onClick={status === 'listening' ? stopSpeaking : startListening}
+                                disabled={status === 'processing' || status === 'speaking'}
+                                className={`w-16 h-16 rounded-full flex justify-center items-center shadow-lg transition-all transform hover:scale-105 active:scale-95 ${status === 'listening' ? 'bg-red-50 text-red-500 animate-pulse border-2 border-red-500' :
+                                    status === 'speaking' ? 'bg-purple-100 text-purple-600 border border-purple-200' :
+                                        status === 'processing' ? 'bg-gray-100 text-gray-400' :
+                                            'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-xl hover:-translate-y-1'
+                                    }`}
+                            >
+                                {status === 'listening' ? <MicOff className="w-6 h-6" /> :
+                                    status === 'speaking' ? <Volume2 className="w-6 h-6 animate-pulse" /> :
+                                        status === 'processing' ? <Loader2 className="w-6 h-6 animate-spin" /> :
+                                            <Mic className="w-6 h-6" />}
+                            </button>
+                            <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">
+                                {status === 'listening' ? 'Tap to Stop' : status === 'speaking' ? 'Speaking...' : 'Tap to Speak'}
+                            </span>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Floating Trigger Button */}
+            <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={toggleBox}
+                className={`flex items-center justify-center w-16 h-16 rounded-full shadow-2xl transition-colors ${isOpen ? 'bg-gray-800 text-white' : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:shadow-blue-500/50'}`}
+            >
+                {isOpen ? <X className="w-6 h-6" /> : <Sparkles className="w-6 h-6" />}
+            </motion.button>
+        </div>
+    );
+}
