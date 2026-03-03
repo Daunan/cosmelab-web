@@ -1554,8 +1554,8 @@ export const getBuyingLink = (language: Language, product: Product | undefined):
         return 'https://www.boutiqaat.com/en-kw/women/g9-skin';
     }
 
-    // 5. Group 1: English, Spanish, Russian, Greek -> Amazon
-    if ([Language.US, Language.ES, Language.RU, Language.EL].includes(language)) {
+    // 5. Group 1: English, Spanish, Russian, Greek, Hungarian -> Amazon
+    if ([Language.US, Language.ES, Language.RU, Language.EL, Language.HU].includes(language)) {
         const brand = product?.brand;
         if (brand === 'BERRISOM') return 'https://www.amazon.com/s?srs=9400023011';
         if (brand === 'G9SKIN') return 'https://www.amazon.com/g9skin/s?k=g9skin';
