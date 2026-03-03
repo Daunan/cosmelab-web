@@ -149,43 +149,43 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
         setStatus('processing');
         const lowerText = text.toLowerCase();
 
-        // 1. Keyword Dictionary Mapping
-        let matchedProductId = '';
-
-        const keywords = {
-            collagen: ['collagen', 'wrinkle', 'aging', '주름', '탄력', '콜라겐', 'シワ', 'arruga', 'rides', 'falten', 'ráncok', 'kortsud'],
-            vita: ['vitamin', 'brightening', 'dark spot', '미백', '잡티', '비타민', 'シミ', 'manchas', 'taches', 'flecken', 'folt', 'laigud'],
-            heartleaf: ['acne', 'trouble', 'sensitive', '여드름', '트러블', '진정', 'ニキビ', 'acné', 'akne', 'pattanás'],
-            barrier: ['dry', 'moisture', 'ceramide', '건조', '보습', '건성', '乾燥', 'seco', 'sec', 'trocken', 'száraz', 'kuiv'],
-            cica: ['redness', 'calms', 'cica', '홍조', '시카', '赤み', 'rojez', 'rougeur', 'rötung', 'bőrpír', 'punetus'],
-            peel: ['peel', 'dead skin', '각질', '필링', 'ピーリング', 'exfoliación', 'hámlás', 'koorimine'],
-            lip: ['lip', 'tint', '입술', '틴트', '립', 'リップ', 'labio', 'lèvre', 'lippe', 'ajak', 'huul'],
-            eyebrow: ['eye', 'brow', '눈썹', '아이브로우', '眉毛', 'ceja', 'sourcil', 'augenbraue', 'szemöldök', 'kulm']
+        // 1. Keyword Dictionary Mapping for all 18 Products across 9 languages
+        const productKeywords: Record<string, string[]> = {
+            'berrisom-lip-original': ['lip', 'tint', '틴트', '립', 'リップ', 'labio', 'lèvre', 'lippe', 'ajak', 'huul', 'тату', 'شفاه', 'χείλη'],
+            'berrisom-jelly': ['jelly', '젤리', 'ジェリー', 'gelée', 'gelatina', 'زيل', 'ζελέ'],
+            'berrisom-eyebrow': ['eyebrow', 'brow', '눈썹', '아이브로우', 'アイブロウ', '眉毛', 'ceja', 'sourcil', 'augenbraue', 'szemöldök', 'kulm', 'حاجب', 'φρύδι', 'брови'],
+            'berrisom-shading': ['shading', 'contour', '쉐딩', '윤곽', 'シェーディング', 'contouring', 'kontur', 'تظليل', 'контуринг', 'σκίαση'],
+            'g9-whipping': ['toneup', 'tone up', 'whitening', '화이트닝', '톤업', '미백', 'トーンアップ', 'aclarante', 'تفتيح', 'осветление', 'λεύκανση'],
+            'g9-moisture': ['moisture', 'hydrate', 'dry', '수분', '보습', '건조', '건성', '乾燥', 'seco', 'sec', 'trocken', 'száraz', 'kuiv', 'ترطيب', 'увлажнение', 'ενυδάτωση'],
+            'g9-milk-toner': ['toner', '토너', '스킨', 'トナー', 'tónico', 'tonique', 'tonik', 'تونر', 'тонер'],
+            'g9-mask': ['mask', 'aesthetic', '마스크', '팩', '에스테틱', 'マスク', 'masque', 'maske', 'maszk', 'qناع', 'маска', 'μάσκα'],
+            'amill-oil': ['oil', '오일', 'オイル', 'aceite', 'huile', 'öl', 'olaj', 'õli', 'زيت', 'масло', 'λάδι'],
+            'amill-foam': ['foam', 'cleanse', '폼', '클렌징', '洗顔', 'limpieza', 'nettoyage', 'reinigung', 'tisztítás', 'puhastus', 'تنظيف', 'очищение', 'καθαρισμός'],
+            'amill-bubble': ['bubble', '버블', '泡', 'bulles', 'blasen', 'buborék', 'mullid', 'فقاعة', 'пузырь', 'φούσκα'],
+            'coscell-eye': ['eye bag', 'eyebag', 'eye', 'retinol', '아이백', '눈밑', '눈가', 'レチノール', '目元', 'ojos', 'yeux', 'augen', 'szem', 'silmad', 'عين', 'глаза', 'μάτια'],
+            'coscell-neck': ['neck', '목주름', '목', '首', 'cou', 'cuello', 'hals', 'nyak', 'kael', 'رقبة', 'шея', 'λαιμός'],
+            'coscell-serum': ['serum', 'galvanic', '세럼', '갈바닉', 'セラム', 'sérum', 'szérum', 'seerum', 'سيروم', 'сыворотка', 'ορός'],
+            'coscell-papaya-ampoule': ['papaya', 'pdrn', 'ampoule', '파파야', '앰플', 'アンプル', 'ampolla', 'ampul', 'امبولة', 'ампула', 'αμπούλα'],
+            'coscell-papaya-foam': ['gomage', 'peeling', '고마쥬', '각질', '필링', 'ピーリング', 'exfoliación', 'gommage', 'peeling', 'hámlás', 'koorimine', 'تقشير', 'пилинг', 'απολέπιση'],
+            'coscell-vita-cream': ['vita cream', 'vitamin cream', '비타 캡슐', '캡슐', 'カプセル', 'capsule', 'kapsel', 'kapszula', 'كبسولة', 'капсула', 'κάψουλα'],
+            'coscell-vita-ampoule': ['vita ampoule', 'vitamin c', '비타민', '잡티', '기미', 'シミ', 'manchas', 'taches', 'flecken', 'folt', 'laigud', 'فيتامين', 'витамин', 'βιταμίνη']
         };
 
-        // 2. Simple Scoring
-        let scores = { berrisom_collagen: 0, coscell_vita: 0, amill_heartleaf: 0, g9_barrier: 0, berrisom_cica: 0, g9_peeling: 0, berrisom_lip: 0, g9_brow: 0 };
-
-        if (keywords.collagen.some(k => lowerText.includes(k))) scores.berrisom_collagen += 2;
-        if (keywords.vita.some(k => lowerText.includes(k))) scores.coscell_vita += 2;
-        if (keywords.heartleaf.some(k => lowerText.includes(k))) scores.amill_heartleaf += 2;
-        if (keywords.barrier.some(k => lowerText.includes(k))) scores.g9_barrier += 2;
-        if (keywords.cica.some(k => lowerText.includes(k))) scores.berrisom_cica += 2;
-        if (keywords.peel.some(k => lowerText.includes(k))) scores.g9_peeling += 2;
-        if (keywords.lip.some(k => lowerText.includes(k))) scores.berrisom_lip += 2;
-        if (keywords.eyebrow.some(k => lowerText.includes(k))) scores.g9_brow += 2;
-
-        // Determine winner
+        // 2. Score calculation
         let maxScore = 0;
-        let winnerType = 'coscell_vita';
+        let matchedProductId = '';
 
-        if (scores.berrisom_collagen > maxScore) { maxScore = scores.berrisom_collagen; winnerType = 'berrisom_collagen'; }
-        if (scores.amill_heartleaf > maxScore) { maxScore = scores.amill_heartleaf; winnerType = 'amill_heartleaf'; }
-        if (scores.g9_barrier > maxScore) { maxScore = scores.g9_barrier; winnerType = 'g9_barrier'; }
-        if (scores.berrisom_cica > maxScore) { maxScore = scores.berrisom_cica; winnerType = 'berrisom_cica'; }
-        if (scores.g9_peeling > maxScore) { maxScore = scores.g9_peeling; winnerType = 'g9_peeling'; }
-        if (scores.berrisom_lip > maxScore) { maxScore = scores.berrisom_lip; winnerType = 'berrisom_lip'; }
-        if (scores.g9_brow > maxScore) { maxScore = scores.g9_brow; winnerType = 'g9_brow'; }
+        for (const [id, keys] of Object.entries(productKeywords)) {
+            let score = 0;
+            keys.forEach(k => {
+                if (lowerText.includes(k)) score += 2;
+            });
+
+            if (score > maxScore) {
+                maxScore = score;
+                matchedProductId = id;
+            }
+        }
 
         setTimeout(() => {
             if (maxScore === 0) {
@@ -206,33 +206,11 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                 return;
             }
 
-            // Map winner to specific Product ID
-            const productMap: Record<string, string> = {
-                'berrisom_collagen': 'berrisom-collagen-cream',
-                'coscell_vita': 'coscell-vita-ampoule',
-                'amill_heartleaf': 'amill-heartleaf-foam',
-                'g9_barrier': 'g9skin-ceramide-cream',
-                'berrisom_cica': 'berrisom-cica-pad',
-                'g9_peeling': 'g9skin-grapefruit-pad',
-                'berrisom_lip': 'berrisom-lip-tint',
-                'g9_brow': 'g9skin-choc-choc-brow'
-            };
-
-            matchedProductId = productMap[winnerType];
-
             // Find product in DB
             let foundProduct = PRODUCTS.find(p => p.id === matchedProductId);
 
-            // Fallbacks if ID doesn't exact match due to mockup mapping
-            if (!foundProduct) {
-                if (winnerType.includes('vita')) foundProduct = PRODUCTS.find(p => p.name.includes('VITA C'));
-                else if (winnerType.includes('collagen')) foundProduct = PRODUCTS.find(p => p.name.includes('COLLAGEN'));
-                else if (winnerType.includes('lip')) foundProduct = PRODUCTS.find(p => p.name.includes('LIP'));
-                else if (winnerType.includes('peeling') || winnerType.includes('cica') || winnerType.includes('heartleaf')) foundProduct = PRODUCTS.find(p => p.name.includes('PAD') || p.name.includes('FOAM'));
-
-                // Absolute default
-                if (!foundProduct) foundProduct = PRODUCTS[0];
-            }
+            // Absolute default fallback (safety net)
+            if (!foundProduct) foundProduct = PRODUCTS[0];
 
             setRecommendedProduct(foundProduct);
             const pName = foundProduct?.translations?.[currentLang]?.name || foundProduct?.name;
