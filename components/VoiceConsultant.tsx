@@ -63,10 +63,11 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                 recognitionRef.current.continuous = false;
                 recognitionRef.current.maxAlternatives = 5; // Request multiple alternatives to boost accuracy
 
-                // Set language for recognition
+                // Set language for recognition (All 11 Supported Languages)
                 const langMap: Record<string, string> = {
-                    [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
+                    [Language.US]: 'en-US', [Language.KR]: 'ko-KR', [Language.JP]: 'ja-JP',
                     [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE',
+                    [Language.ME]: 'ar-SA', [Language.EL]: 'el-GR', [Language.RU]: 'ru-RU',
                     [Language.HU]: 'hu-HU', [Language.ET]: 'et-EE'
                 };
                 recognitionRef.current.lang = langMap[currentLang as string] || 'en-US';
@@ -134,10 +135,12 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
             synthRef.current.cancel(); // Stop current speech
             const utterance = new SpeechSynthesisUtterance(text);
 
-            // Try to match voice lang to UI lang
+            // Try to match voice lang to UI lang (All 11 Supported Languages)
             const langMap: Record<string, string> = {
-                [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
-                [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE'
+                [Language.US]: 'en-US', [Language.KR]: 'ko-KR', [Language.JP]: 'ja-JP',
+                [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE',
+                [Language.ME]: 'ar-SA', [Language.EL]: 'el-GR', [Language.RU]: 'ru-RU',
+                [Language.HU]: 'hu-HU', [Language.ET]: 'et-EE'
             };
             utterance.lang = langMap[currentLang as string] || 'en-US';
 
