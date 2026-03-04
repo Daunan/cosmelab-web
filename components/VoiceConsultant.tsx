@@ -241,7 +241,7 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                         initial={{ opacity: 0, y: 20, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.9 }}
-                        className="mb-4 w-80 md:w-96 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col"
+                        className="mb-4 w-80 md:w-96 max-h-[75vh] h-[600px] bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col"
                     >
                         {/* Header */}
                         <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white flex justify-between items-center">
@@ -255,17 +255,17 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                         </div>
 
                         {/* Chat Area */}
-                        <div className="p-5 flex-grow overflow-y-auto max-h-[60vh] flex flex-col gap-4 bg-gray-50/50">
+                        <div className="p-5 flex-grow flex-shrink overflow-y-auto min-h-0 flex flex-col gap-4 bg-gray-50/50">
 
                             {/* User Input Display */}
                             {userText && (
-                                <div className="self-end bg-blue-100 text-blue-900 px-4 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm">
+                                <div className="self-end bg-blue-100 text-blue-900 px-4 py-2 rounded-2xl rounded-tr-sm text-sm max-w-[85%] shadow-sm flex-shrink-0">
                                     "{userText}"
                                 </div>
                             )}
 
                             {/* Bot Message */}
-                            <div className="self-start bg-white border border-gray-100 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm text-sm max-w-[95%] shadow-sm flex flex-col gap-2">
+                            <div className="self-start bg-white border border-gray-100 text-gray-800 px-4 py-3 rounded-2xl rounded-tl-sm text-sm max-w-[95%] shadow-sm flex flex-col gap-2 flex-shrink-0">
                                 <div className="flex items-center gap-2 text-xs font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 uppercase mb-1">
                                     Cosmelab AI
                                 </div>
@@ -285,7 +285,7 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                             {recommendedProduct && status !== 'processing' && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                                    className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-md mt-2"
+                                    className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-md mt-2 flex-shrink-0 mb-4"
                                 >
                                     <div className="h-32 bg-gray-100 relative w-full">
                                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -325,7 +325,7 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                         </div>
 
                         {/* Action Box */}
-                        <div className="p-4 bg-white border-t border-gray-100 flex flex-col items-center justify-center gap-2">
+                        <div className="p-4 bg-white border-t border-gray-100 flex flex-col items-center justify-center gap-2 flex-shrink-0">
                             <button
                                 onClick={status === 'listening' ? stopSpeaking : startListening}
                                 disabled={status === 'processing' || status === 'speaking'}
