@@ -61,20 +61,22 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
             if (SpeechRecognition) {
                 recognitionRef.current = new SpeechRecognition();
                 recognitionRef.current.continuous = false;
-                recognitionRef.current.interimResults = false;
-
-                // Set language for recognition
-                const langMap: Record<string, string> = {
-                    [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
-                    [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE',
-                    [Language.HU]: 'hu-HU', [Language.ET]: 'et-EE'
-                };
-                recognitionRef.current.lang = langMap[currentLang as string] || 'en-US';
+                recognitionRef.current.maxAlternatives = 5; // Request multiple alternatives to boost accuracy
 
                 recognitionRef.current.onresult = (event: any) => {
-                    const transcript = event.results[0][0].transcript;
-                    setUserText(transcript);
-                    processCommand(transcript);
+                    // Gather up to 5 alternative transcripts from the STT engine
+                    const alternatives = [];
+                    for (let i = 0; i < event.results[0].length; i++) {
+                        alternatives.push(event.results[0][i].transcript);
+                    }
+
+                    // Keep the primary transcript for UI display
+                    const primaryTranscript = event.results[0][0].transcript;
+                    setUserText(primaryTranscript);
+
+                    // Pass all alternatives joined together to the processor so fuzzy/imperfect matches still work
+                    const combinedText = alternatives.join(' | ');
+                    processCommand(combinedText);
                 };
 
                 recognitionRef.current.onerror = (event: any) => {
@@ -149,26 +151,26 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
         setStatus('processing');
         const lowerText = text.toLowerCase();
 
-        // 1. Keyword Dictionary Mapping for all 18 Products across 9 languages
+        // 1. Keyword Dictionary Mapping with Fuzzy/Phonetic additions for all 18 Products
         const productKeywords: Record<string, string[]> = {
-            'berrisom-lip-original': ['lip', 'tint', '틴트', '립', 'リップ', 'labio', 'lèvre', 'lippe', 'ajak', 'huul', 'тату', 'شفاه', 'χείλη'],
-            'berrisom-jelly': ['jelly', '젤리', 'ジェリー', 'gelée', 'gelatina', 'زيل', 'ζελέ'],
-            'berrisom-eyebrow': ['eyebrow', 'brow', '눈썹', '아이브로우', 'アイブロウ', '眉毛', 'ceja', 'sourcil', 'augenbraue', 'szemöldök', 'kulm', 'حاجب', 'φρύδι', 'брови'],
-            'berrisom-shading': ['shading', 'contour', '쉐딩', '윤곽', 'シェーディング', 'contouring', 'kontur', 'تظليل', 'контуринг', 'σκίαση'],
-            'g9-whipping': ['toneup', 'tone up', 'whitening', '화이트닝', '톤업', '미백', 'トーンアップ', 'aclarante', 'تفتيح', 'осветление', 'λεύκανση'],
-            'g9-moisture': ['moisture', 'hydrate', 'dry', '수분', '보습', '건조', '건성', '乾燥', 'seco', 'sec', 'trocken', 'száraz', 'kuiv', 'ترطيب', 'увлажнение', 'ενυδάτωση'],
-            'g9-milk-toner': ['toner', '토너', '스킨', 'トナー', 'tónico', 'tonique', 'tonik', 'تونر', 'тонер'],
-            'g9-mask': ['mask', 'aesthetic', '마스크', '팩', '에스테틱', 'マスク', 'masque', 'maske', 'maszk', 'qناع', 'маска', 'μάσκα'],
-            'amill-oil': ['oil', '오일', 'オイル', 'aceite', 'huile', 'öl', 'olaj', 'õli', 'زيت', 'масло', 'λάδι'],
-            'amill-foam': ['foam', 'cleanse', '폼', '클렌징', '洗顔', 'limpieza', 'nettoyage', 'reinigung', 'tisztítás', 'puhastus', 'تنظيف', 'очищение', 'καθαρισμός'],
-            'amill-bubble': ['bubble', '버블', '泡', 'bulles', 'blasen', 'buborék', 'mullid', 'فقاعة', 'пузырь', 'φούσκα'],
-            'coscell-eye': ['eye bag', 'eyebag', 'eye', 'retinol', '아이백', '눈밑', '눈가', 'レチノール', '目元', 'ojos', 'yeux', 'augen', 'szem', 'silmad', 'عين', 'глаза', 'μάτια'],
-            'coscell-neck': ['neck', '목주름', '목', '首', 'cou', 'cuello', 'hals', 'nyak', 'kael', 'رقبة', 'шея', 'λαιμός'],
-            'coscell-serum': ['serum', 'galvanic', '세럼', '갈바닉', 'セラム', 'sérum', 'szérum', 'seerum', 'سيروم', 'сыворотка', 'ορός'],
-            'coscell-papaya-ampoule': ['papaya', 'pdrn', 'ampoule', '파파야', '앰플', 'アンプル', 'ampolla', 'ampul', 'امبولة', 'ампула', 'αμπούλα'],
-            'coscell-papaya-foam': ['gomage', 'peeling', '고마쥬', '각질', '필링', 'ピーリング', 'exfoliación', 'gommage', 'peeling', 'hámlás', 'koorimine', 'تقشير', 'пилинг', 'απολέπιση'],
-            'coscell-vita-cream': ['vita cream', 'vitamin cream', '비타 캡슐', '캡슐', 'カプセル', 'capsule', 'kapsel', 'kapszula', 'كبسولة', 'капсула', 'κάψουλα'],
-            'coscell-vita-ampoule': ['vita ampoule', 'vitamin c', '비타민', '잡티', '기미', 'シミ', 'manchas', 'taches', 'flecken', 'folt', 'laigud', 'فيتامين', 'витамин', 'βιταμίνη']
+            'berrisom-lip-original': ['lip', 'tint', '틴트', '립', 'リップ', 'labio', 'lèvre', 'lippe', 'ajak', 'huul', 'тату', 'شفاه', 'χείλη', 'teent', 'leep', 'leave', 'leaf'],
+            'berrisom-jelly': ['jelly', '젤리', 'ジェリー', 'gelée', 'gelatina', 'زيل', 'ζελέ', 'gelly', 'jeli'],
+            'berrisom-eyebrow': ['eyebrow', 'brow', '눈썹', '아이브로우', 'アイブロウ', '眉毛', 'ceja', 'sourcil', 'augenbraue', 'szemöldök', 'kulm', 'حاجب', 'φρύδι', 'брови', 'brown', 'aybrow'],
+            'berrisom-shading': ['shading', 'contour', '쉐딩', '윤곽', 'シェーディング', 'contouring', 'kontur', 'تظليل', 'контуринг', 'σκίαση', 'shade', 'shadow'],
+            'g9-whipping': ['toneup', 'tone up', 'whitening', '화이트닝', '톤업', '미백', 'トーンアップ', 'aclarante', 'تفتيح', 'осветление', 'λεύκανση', 'white', 'brightening'],
+            'g9-moisture': ['moisture', 'hydrate', 'dry', '수분', '보습', '건조', '건성', '乾燥', 'seco', 'sec', 'trocken', 'száraz', 'kuiv', 'ترطيب', 'увлажнение', 'ενυδάτωση', 'hydra', 'moist', 'water'],
+            'g9-milk-toner': ['toner', '토너', '스킨', 'トナー', 'tónico', 'tonique', 'tonik', 'تونر', 'тонер', 'tone', 'milk', '우유'],
+            'g9-mask': ['mask', 'aesthetic', '마스크', '팩', '에스테틱', 'マスク', 'masque', 'maske', 'maszk', 'qناع', 'маска', 'μάσκα', 'pack', 'mac'],
+            'amill-oil': ['oil', '오일', 'オイル', 'aceite', 'huile', 'öl', 'olaj', 'õli', 'زيت', 'масло', 'λάδι', 'oleo', 'oel'],
+            'amill-foam': ['foam', 'cleanse', '폼', '클렌징', '洗顔', 'limpieza', 'nettoyage', 'reinigung', 'tisztítás', 'puhastus', 'تنظيف', 'очищение', 'καθαρισμός', 'cleansing', 'wash'],
+            'amill-bubble': ['bubble', '버블', '泡', 'bulles', 'blasen', 'buborék', 'mullid', 'فقاعة', 'пузырь', 'φούσκα', 'buble', 'booble'],
+            'coscell-eye': ['eye bag', 'eyebag', 'eye', 'retinol', '아이백', '눈밑', '눈가', 'レチノール', '目元', 'ojos', 'yeux', 'augen', 'szem', 'silmad', 'عين', 'глаза', 'μάτια', 'retynol', 'wrinkle'],
+            'coscell-neck': ['neck', '목주름', '목', '首', 'cou', 'cuello', 'hals', 'nyak', 'kael', 'رقبة', 'шея', 'λαιμός', 'rimpier', 'hal'],
+            'coscell-serum': ['serum', 'galvanic', '세럼', '갈바닉', 'セラム', 'sérum', 'szérum', 'seerum', 'سيروم', 'сыворотка', 'ορός', 'cerum', 'galvan'],
+            'coscell-papaya-ampoule': ['papaya', 'pdrn', 'ampoule', '파파야', '앰플', 'アンプル', 'ampolla', 'ampul', 'امبولة', 'ампула', 'αμπούλα', 'pepaya'],
+            'coscell-papaya-foam': ['gomage', 'peeling', '고마쥬', '각질', '필링', 'ピーリング', 'exfoliación', 'gommage', 'peeling', 'hámlás', 'koorimine', 'تقشير', 'пилинг', 'απολέπιση', 'gomache'],
+            'coscell-vita-cream': ['vita cream', 'vitamin cream', '비타 캡슐', '캡슐', 'カプセル', 'capsule', 'kapsel', 'kapszula', 'كبسولة', 'капсула', 'κάψουλα', 'capsul'],
+            'coscell-vita-ampoule': ['vita ampoule', 'vitamin c', '비타민', '잡티', '기미', 'シミ', 'manchas', 'taches', 'flecken', 'folt', 'laigud', 'فيتامين', 'витамин', 'βιταμίνη', 'bitamin', 'beta']
         };
 
         // 2. Score calculation
