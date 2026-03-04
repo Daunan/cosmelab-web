@@ -1245,7 +1245,7 @@ export const PRODUCTS: Product[] = [
         brand: 'COSCELL',
         name: 'NECK CREAM',
         description: 'Advanced neck cream tailored to smooth out wrinkles and restore firmness.',
-        imageUrl: getDriveUrl('1w-8d0j5cOpJ_2T8qT2Y6JDvVngfW-Q7L'),
+        imageUrl: getDriveUrl('1Beh78CyFxVlkYlKT6qTLHBuVe9Av_6Fp'),
         subNeed: ['wrinkle_neck'],
         tags: ['Firming', 'Smooth'],
         translations: {
@@ -1264,7 +1264,7 @@ export const PRODUCTS: Product[] = [
         brand: 'COSCELL',
         name: 'RETINO GALVANIC SERUM 100',
         description: 'Microcurrent-inspired serum that boosts retinol absorption for maximum efficacy.',
-        imageUrl: getDriveUrl('1qI6G5ZfCgP44_Qn4r0qE1O0T0k2d8r'),
+        imageUrl: getDriveUrl('1eBIVdSOBZchQ_j98U-IkG5qIJ7T-LcPG'),
         subNeed: ['serum_care'],
         tags: ['Galvanic', 'Boost'],
         snsFeedback: {
