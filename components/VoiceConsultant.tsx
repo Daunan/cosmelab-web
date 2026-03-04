@@ -63,6 +63,14 @@ export default function VoiceConsultant({ currentLang }: VoiceConsultantProps) {
                 recognitionRef.current.continuous = false;
                 recognitionRef.current.maxAlternatives = 5; // Request multiple alternatives to boost accuracy
 
+                // Set language for recognition
+                const langMap: Record<string, string> = {
+                    [Language.KR]: 'ko-KR', [Language.US]: 'en-US', [Language.JP]: 'ja-JP',
+                    [Language.ES]: 'es-ES', [Language.FR]: 'fr-FR', [Language.DE]: 'de-DE',
+                    [Language.HU]: 'hu-HU', [Language.ET]: 'et-EE'
+                };
+                recognitionRef.current.lang = langMap[currentLang as string] || 'en-US';
+
                 recognitionRef.current.onresult = (event: any) => {
                     // Gather up to 5 alternative transcripts from the STT engine
                     const alternatives = [];
