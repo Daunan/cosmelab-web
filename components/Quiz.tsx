@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, RefreshCcw, ShoppingBag, ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronRight, RefreshCcw, ShoppingBag, ArrowRight, Sparkles, Instagram, Linkedin } from 'lucide-react';
 import { CATEGORIES, PRODUCTS, UI_TRANSLATIONS, getBuyingLink, BRAND_INTRODUCE_URL, getDriveUrl } from '@/lib/data';
 import { Category, Language, QuizStepId } from '@/lib/types';
 import { cn } from '@/lib/utils';
@@ -165,6 +165,26 @@ export default function Quiz({ locale }: QuizProps) {
                                 <span className="mr-2">{t.start}</span>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </button>
+
+                            {/* Social Links under START DIAGNOSIS */}
+                            <div className="flex items-center justify-center md:justify-start gap-4 pt-2">
+                                <a
+                                    href="https://www.instagram.com/cosmelab_official_global/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="p-3 bg-gray-100 hover:bg-pink-100 text-gray-600 hover:text-pink-600 rounded-full transition-colors"
+                                >
+                                    <Instagram className="w-5 h-5" />
+                                </a>
+                                <a
+                                    href="https://www.linkedin.com/company/104779203/admin/page-posts/published/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="p-3 bg-gray-100 hover:bg-blue-100 text-gray-600 hover:text-blue-600 rounded-full transition-colors"
+                                >
+                                    <Linkedin className="w-5 h-5" />
+                                </a>
+                            </div>
                         </div>
 
                         {/* RIGHT: IMAGE */}
