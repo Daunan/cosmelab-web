@@ -167,22 +167,26 @@ export default function Quiz({ locale }: QuizProps) {
                             </button>
 
                             {/* Social Links under START DIAGNOSIS */}
-                            <div className="flex items-center justify-center md:justify-start gap-4 pt-2">
+                            <div className="flex items-center justify-center md:justify-start gap-5 pt-4">
                                 <a
                                     href="https://www.instagram.com/cosmelab_official_global/"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="p-3 bg-gray-100 hover:bg-pink-100 text-gray-600 hover:text-pink-600 rounded-full transition-colors"
+                                    className="group relative flex items-center justify-center w-12 h-12 rounded-2xl bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1),_inset_0_-3px_5px_rgba(0,0,0,0.05),_inset_0_2px_4px_rgba(255,255,255,0.8)] hover:shadow-[0_8px_15px_rgba(0,0,0,0.15)] transform transition-all hover:-translate-y-1"
                                 >
-                                    <Instagram className="w-5 h-5" />
+                                    <div className="absolute inset-[2px] rounded-xl bg-gradient-to-tr from-[#FFDC80] via-[#F56040] to-[#C13584] opacity-90 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Instagram className="w-6 h-6 text-white" />
+                                    </div>
                                 </a>
                                 <a
-                                    href="https://www.linkedin.com/company/104779203/admin/page-posts/published/"
+                                    href="https://www.linkedin.com/company/104779203/"
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="p-3 bg-gray-100 hover:bg-blue-100 text-gray-600 hover:text-blue-600 rounded-full transition-colors"
+                                    className="group relative flex items-center justify-center w-12 h-12 rounded-2xl bg-white shadow-[0_4px_10px_rgba(0,0,0,0.1),_inset_0_-3px_5px_rgba(0,0,0,0.05),_inset_0_2px_4px_rgba(255,255,255,0.8)] hover:shadow-[0_8px_15px_rgba(0,0,0,0.15)] transform transition-all hover:-translate-y-1"
                                 >
-                                    <Linkedin className="w-5 h-5" />
+                                    <div className="absolute inset-[2px] rounded-xl bg-[#0a66c2] opacity-90 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Linkedin className="w-6 h-6 text-white" fill="currentColor" />
+                                    </div>
                                 </a>
                             </div>
                         </div>
