@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, RefreshCcw, ShoppingBag, ArrowRight, Sparkles, Instagram, Linkedin } from 'lucide-react';
+import { ChevronRight, RefreshCcw, ShoppingBag, ArrowRight, Sparkles, Instagram, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { CATEGORIES, PRODUCTS, UI_TRANSLATIONS, getBuyingLink, BRAND_INTRODUCE_URL, getDriveUrl } from '@/lib/data';
 import { Category, Language, QuizStepId } from '@/lib/types';
 import { cn } from '@/lib/utils';
@@ -186,6 +186,44 @@ export default function Quiz({ locale }: QuizProps) {
                                 >
                                     <div className="absolute inset-[2px] rounded-xl bg-[#0a66c2] opacity-90 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <Linkedin className="w-6 h-6 text-white" fill="currentColor" />
+                                    </div>
+                                </a>
+                            </div>
+
+                            {/* Contact Info */}
+                            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 mt-6 pt-6 border-t border-gray-100 w-full max-w-lg mx-auto md:mx-0">
+                                {/* Email */}
+                                <a
+                                    href="mailto:overseas@cosmelab.com"
+                                    className="group flex flex-1 items-center gap-3 px-4 py-3 bg-white/60 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg transition-all border border-gray-100/50 w-full overflow-hidden relative"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="w-10 h-10 rounded-xl bg-blue-100/80 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform relative z-10 flex-shrink-0">
+                                        <Mail className="w-5 h-5" />
+                                    </div>
+                                    <div className="flex flex-col relative z-10 text-left overflow-hidden">
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Email Us</span>
+                                        <span className="text-[13px] font-semibold text-gray-800 truncate">overseas@cosmelab.com</span>
+                                    </div>
+                                </a>
+
+                                {/* WhatsApp */}
+                                <a
+                                    href="https://wa.me/821050938474"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="group relative flex flex-1 items-center gap-3 px-4 py-3 bg-white/60 backdrop-blur-sm rounded-2xl shadow-sm hover:shadow-lg transition-all border border-gray-100/50 w-full overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-green-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    {/* 3D WhatsApp Icon */}
+                                    <div className="relative flex items-center justify-center w-10 h-10 flex-shrink-0 rounded-xl bg-white shadow-[0_2px_5px_rgba(0,0,0,0.1),_inset_0_-2px_3px_rgba(0,0,0,0.05),_inset_0_1px_2px_rgba(255,255,255,0.8)] z-10">
+                                        <div className="absolute inset-[1.5px] rounded-[10px] bg-gradient-to-tr from-[#128C7E] to-[#25D366] opacity-90 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                            <MessageCircle className="w-5 h-5 text-white" fill="currentColor" />
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col relative z-10 text-left overflow-hidden">
+                                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">WhatsApp</span>
+                                        <span className="text-[13px] font-semibold text-gray-800 truncate">+82 10-5093-8474</span>
                                     </div>
                                 </a>
                             </div>
